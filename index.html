@@ -64,6 +64,119 @@
       </div>
     </section>
 
+    <section class="section container" data-calculator>
+      <h2 class="section-title">Быстрый ROI-калькулятор</h2>
+      <p class="section-subtitle">
+        Введите параметры — результаты пересчитываются автоматически. Для детального расчета
+        откройте полную версию калькулятора.
+      </p>
+      <div class="calculator" style="margin-top: 24px;">
+        <div class="calc-group">
+          <h4>1. Инвестиции</h4>
+          <div class="input-row">
+            <label for="equipmentCost">Стоимость оборудования, млн ₽</label>
+            <input id="equipmentCost" type="number" value="50" min="0" step="0.1" />
+          </div>
+          <div class="input-row">
+            <label for="commissioningPercent">Пусконаладка и комиссионирование, %</label>
+            <input id="commissioningPercent" type="number" value="25" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label>Итого инвестиция</label>
+            <div class="output" id="investmentTotal">—</div>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <h4>2. Производство</h4>
+          <div class="input-row">
+            <label for="workDays">Рабочих дней в году</label>
+            <input id="workDays" type="number" value="250" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="shiftsPerDay">Смен в день</label>
+            <input id="shiftsPerDay" type="number" value="2" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="hoursPerShift">Часов в смене</label>
+            <input id="hoursPerShift" type="number" value="8" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="utilizationPercent">Коэффициент использования, %</label>
+            <input id="utilizationPercent" type="number" value="85" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label>Эффективные часы</label>
+            <div class="output" id="effectiveHours">—</div>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <h4>3. Затраты на час</h4>
+          <div class="input-row">
+            <label>Амортизация</label>
+            <div class="output" id="depreciation">—</div>
+          </div>
+          <div class="input-row">
+            <label for="operatorSalary">Зарплата оператора, ₽/мес</label>
+            <input id="operatorSalary" type="number" value="120000" min="0" step="1000" />
+          </div>
+          <div class="input-row">
+            <label>Оплата труда</label>
+            <div class="output" id="laborCost">—</div>
+          </div>
+          <div class="input-row">
+            <label for="energyCost">Энергозатраты, ₽/час</label>
+            <input id="energyCost" type="number" value="600" min="0" step="10" />
+          </div>
+          <div class="input-row">
+            <label for="toolCost">Инструмент и оснастка, ₽/час</label>
+            <input id="toolCost" type="number" value="1000" min="0" step="10" />
+          </div>
+          <div class="input-row">
+            <label for="servicePercent">Service-контракт, % от инвестиций</label>
+            <input id="servicePercent" type="number" value="4" min="0" step="0.1" />
+          </div>
+          <div class="input-row">
+            <label>Итого затраты на час</label>
+            <div class="output" id="totalCostHour">—</div>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <h4>4. Выручка и ROI</h4>
+          <div class="input-row">
+            <label for="partPrice">Цена готовой детали, ₽</label>
+            <input id="partPrice" type="number" value="15000" min="0" step="100" />
+          </div>
+          <div class="input-row">
+            <label for="partsPerHour">Деталей в час, шт</label>
+            <input id="partsPerHour" type="number" value="1" min="0" step="0.1" />
+          </div>
+          <div class="input-row">
+            <label>Выручка на час</label>
+            <div class="output" id="revenueHour">—</div>
+          </div>
+          <div class="input-row">
+            <label>Прибыль в год</label>
+            <div class="output" id="profitYear">—</div>
+          </div>
+          <div class="input-row">
+            <label>Срок окупаемости</label>
+            <div class="output" id="paybackMonths">—</div>
+          </div>
+          <div class="input-row">
+            <label>ROI в год</label>
+            <div class="output" id="roiYear">—</div>
+          </div>
+          <div class="actions" style="margin-top: 12px;">
+            <a class="button" href="roi-calculator.html">Полная версия калькулятора</a>
+            <a class="button secondary" href="contacts.html">Получить расчет</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section container">
       <h2 class="section-title">5 критических ошибок</h2>
       <div class="grid two" style="margin-top: 24px;">

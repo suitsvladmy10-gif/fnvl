@@ -278,7 +278,8 @@ header {
   border: 1px solid var(--stroke);
   border-radius: var(--radius-md);
   padding: 20px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 40px rgba(31, 42, 54, 0.08);
 }
 
 .calc-group h4 {
@@ -313,11 +314,29 @@ textarea {
   font-family: inherit;
   font-size: 14px;
   background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(213, 154, 63, 0.8);
+  box-shadow: 0 0 0 3px rgba(213, 154, 63, 0.2);
 }
 
 .output {
   font-weight: 700;
   color: var(--copper);
+}
+
+.output {
+  background: rgba(213, 154, 63, 0.08);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed rgba(213, 154, 63, 0.4);
 }
 
 .notice {
