@@ -37,45 +37,50 @@
       </div>
     </section>
 
-    <section class="section container">
-      <h2 class="section-title">5 вопросов для выбора</h2>
+    <section class="section container" data-decision>
+      <h2 class="section-title">Интерактивный опрос выбора</h2>
+      <p class="section-subtitle">
+        Ответьте на 5 вопросов. Система сформирует рекомендацию и подскажет следующий шаг.
+      </p>
       <div class="grid two" style="margin-top: 24px;">
         <div class="card">
-          <h3>1. Месячный объем производства</h3>
-          <p><strong>&lt; 200 шт/мес:</strong> специализированный станок (токарный или фрезерный).</p>
-          <p><strong>200–500 шт/мес:</strong> специализированный + оценить многозадачный.</p>
-          <p><strong>&gt; 500 шт/мес:</strong> многозадачный или несколько специализированных.</p>
+          <div class="input-row">
+            <label for="surveyVolume">Месячный объем, шт/мес</label>
+            <input id="surveyVolume" type="number" value="250" min="0" step="10" />
+          </div>
+          <div class="input-row">
+            <label for="surveyTypes">Типов деталей в месяц</label>
+            <input id="surveyTypes" type="number" value="5" min="1" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="surveySetup">Допустимая наладка</label>
+            <select id="surveySetup">
+              <option value="4">До 4 часов</option>
+              <option value="2">1–2 часа</option>
+              <option value="0.5">До 30 минут</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="surveyAccuracy">Класс точности</label>
+            <select id="surveyAccuracy">
+              <option value="0.015">±0.010–0.015 мм</option>
+              <option value="0.01">±0.005–0.010 мм</option>
+              <option value="0.005">±0.005 мм и лучше</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="surveyBudget">Бюджет, млн ₽</label>
+            <input id="surveyBudget" type="number" value="60" min="0" step="1" />
+          </div>
+          <p class="small">Параметры можно менять — рекомендация обновляется сразу.</p>
         </div>
         <div class="card">
-          <h3>2. Количество типов деталей</h3>
-          <p><strong>1–3 типа:</strong> специализированный станок под основную деталь.</p>
-          <p><strong>4–8 типов:</strong> многозадачный центр MZPG.</p>
-          <p><strong>&gt; 8 типов:</strong> несколько центров или гибкий цех.</p>
-        </div>
-        <div class="card">
-          <h3>3. Допустимая задержка на переустановку</h3>
-          <p><strong>4 часа:</strong> специализированный станок.</p>
-          <p><strong>1–2 часа:</strong> многозадачный центр.</p>
-          <p><strong>&lt; 30 минут:</strong> горизонтальный центр + система подачи.</p>
-        </div>
-        <div class="card">
-          <h3>4. Требуемый класс точности</h3>
-          <p><strong>±0.010–0.015 мм:</strong> специализированный токарный.</p>
-          <p><strong>±0.005–0.010 мм:</strong> фрезерный или многозадачный.</p>
-          <p><strong>±0.005 мм и лучше:</strong> горизонтальный или усиленный многозадачный.</p>
-        </div>
-        <div class="card">
-          <h3>5. Бюджет</h3>
-          <p><strong>От 18 млн ₽:</strong> специализированный станок.</p>
-          <p><strong>50–70 млн ₽:</strong> многозадачный центр или два специализированных.</p>
-          <p><strong>&gt; 80 млн ₽:</strong> горизонтальный центр + многозадачный.</p>
-        </div>
-        <div class="card">
-          <h3>Ключевая мысль</h3>
-          <p>
-            Если номенклатура стабильна — выгоднее специализация. Если требуется гибкость и быстрые переналадки —
-            выбирайте многозадачный центр.
-          </p>
+          <h3>Рекомендация</h3>
+          <p id="surveyResult" class="output">—</p>
+          <p id="surveyNext" class="small"></p>
+          <div class="notice" style="margin-top: 16px;">
+            Результат ориентировочный. Для детального подбора используйте консультацию инженера.
+          </div>
         </div>
       </div>
     </section>

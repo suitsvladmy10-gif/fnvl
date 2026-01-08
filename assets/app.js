@@ -285,9 +285,61 @@ const setupSelector = () => {
   update();
 };
 
+const setupDecisionSurvey = () => {
+  const root = document.querySelector("[data-decision]");
+  if (!root) return;
+
+  const volumeEl = document.getElementById("surveyVolume");
+  const typesEl = document.getElementById("surveyTypes");
+  const setupEl = document.getElementById("surveySetup");
+  const accuracyEl = document.getElementById("surveyAccuracy");
+  const budgetEl = document.getElementById("surveyBudget");
+  const resultEl = document.getElementById("surveyResult");
+  const nextEl = document.getElementById("surveyNext");
+
+  const update = () => {
+    const volume = parseFloat(volumeEl.value) || 0;
+    const types = parseFloat(typesEl.value) || 0;
+    const setup = parseFloat(setupEl.value) || 4;
+    const accuracy = parseFloat(accuracyEl.value) || 0.015;
+    const budget = parseFloat(budgetEl.value) || 0;
+
+    let recommendation = "Специализированный станок";
+    let nextStep = "Подготовить ТЗ на деталь и уточнить требования к оснастке.";
+
+    if (volume > 500 || types > 8 || setup <= 0.5) {
+      recommendation = "Многозадачный центр или горизонтальный обрабатывающий центр";
+      nextStep = "Собрать перечень типовых деталей и запросить расчет производительности.";
+    } else if (volume >= 200 || types >= 4 || setup <= 2) {
+      recommendation = "Специализированный + рассмотреть многозадачный центр";
+      nextStep = "Сравнить экономику 2-х станков против одного центра.";
+    }
+
+    if (accuracy <= 0.005 && setup <= 2) {
+      recommendation = "Горизонтальный или усиленный многозадачный центр";
+      nextStep = "Проверить требования по точности и доступные системы контроля.";
+    }
+
+    if (budget >= 80) {
+      nextStep = "Сформировать два сценария: горизонтальный + многозадачный / несколько специализированных.";
+    } else if (budget >= 50) {
+      nextStep = "Сравнить бюджет на многозадачный центр и пару специализированных станков.";
+    }
+
+    resultEl.textContent = recommendation;
+    nextEl.textContent = `Следующий шаг: ${nextStep}`;
+  };
+
+  [volumeEl, typesEl, setupEl, accuracyEl, budgetEl].forEach((el) =>
+    el.addEventListener("input", update)
+  );
+  update();
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   setupCalculator();
   setupContactForm();
   setupReveal();
   setupSelector();
+  setupDecisionSurvey();
 });
