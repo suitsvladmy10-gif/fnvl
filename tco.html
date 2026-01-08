@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCO на 5 лет</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Finval • 2026</div>
+      <nav class="nav-links">
+        <a href="index.html">Гид</a>
+        <a href="roi-calculator.html">ROI-калькулятор</a>
+        <a href="comparison.html">Сравнение</a>
+        <a href="decision.html">Сценарии</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="checklist.html">Чеклист</a>
+        <a href="tco.html">TCO 5 лет</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">TCO</div>
+      <h1>Расчет стоимости владения на 5 лет</h1>
+      <p>
+        TCO показывает полную стоимость владения: инвестиции, сервис, персонал, энергию,
+        инструмент и потери от простоев. Используйте этот блок для сравнения сценариев.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="roi-calculator.html">Считать ROI</a>
+        <a class="button secondary" href="contacts.html">Запросить расчет</a>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">Компоненты TCO</h2>
+      <table class="table" style="margin-top: 24px;">
+        <thead>
+          <tr>
+            <th>Статья</th>
+            <th>Описание</th>
+            <th>Типовой диапазон</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Инвестиции</td>
+            <td>Стоимость станка + пусконаладка + инфраструктура.</td>
+            <td>10–250M ₽</td>
+          </tr>
+          <tr>
+            <td>Сервис и ТО</td>
+            <td>Контракты, расходники, калибровка осей.</td>
+            <td>3–5% в год</td>
+          </tr>
+          <tr>
+            <td>Персонал</td>
+            <td>Оператор + наладчик + обучение.</td>
+            <td>1–3 человека</td>
+          </tr>
+          <tr>
+            <td>Энергия</td>
+            <td>Электричество, сжатый воздух, охлаждение.</td>
+            <td>500–800 ₽/час</td>
+          </tr>
+          <tr>
+            <td>Инструмент</td>
+            <td>Режущий инструмент, оснастка, замены.</td>
+            <td>8–18% оборота</td>
+          </tr>
+          <tr>
+            <td>Простои</td>
+            <td>Потери из-за наладок, ожидания запчастей.</td>
+            <td>3–8% времени</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">Формула TCO</h2>
+      <div class="card">
+        <p><strong>TCO 5 лет</strong> = Инвестиции + 5 × (Сервис + Персонал + Энергия + Инструмент + Простои).</p>
+        <p class="small">Используйте фактические параметры производства для уточнения.</p>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">Пример расчета</h2>
+      <div class="grid two" style="margin-top: 24px;">
+        <div class="card">
+          <h3>FVC-1100</h3>
+          <p>Инвестиция: 12M ₽.</p>
+          <p>Годовые затраты: 7M ₽.</p>
+          <p>TCO 5 лет: 12M + 5 × 7M = 47M ₽.</p>
+        </div>
+        <div class="card">
+          <h3>FAU-80</h3>
+          <p>Инвестиция: 60M ₽.</p>
+          <p>Годовые затраты: 18M ₽.</p>
+          <p>TCO 5 лет: 60M + 5 × 18M = 150M ₽.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Хотите точный TCO? Подготовим модель с учетом ваших ставок и графика загрузки.
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

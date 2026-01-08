@@ -336,10 +336,103 @@ const setupDecisionSurvey = () => {
   update();
 };
 
+const setupComparisonFilters = () => {
+  const root = document.querySelector("[data-compare-filters]");
+  if (!root) return;
+
+  const volumeEl = document.getElementById("filterVolume");
+  const materialEl = document.getElementById("filterMaterial");
+  const accuracyEl = document.getElementById("filterAccuracy");
+  const budgetEl = document.getElementById("filterBudget");
+  const priorityEl = document.getElementById("filterPriority");
+  const rows = document.querySelectorAll("[data-compare-table] tbody tr");
+
+  const matches = (row, key, value) => {
+    if (value === "any") return true;
+    return row.getAttribute(`data-${key}`) === value;
+  };
+
+  const getNumber = (row, key) => {
+    const raw = row.getAttribute(`data-${key}`);
+    const value = parseFloat(raw);
+    return Number.isFinite(value) ? value : 0;
+  };
+
+  const normalize = (value, min, max) => {
+    if (max === min) return 0;
+    return (value - min) / (max - min);
+  };
+
+  const update = () => {
+    const volume = volumeEl.value;
+    const material = materialEl.value;
+    const accuracy = accuracyEl.value;
+    const budget = budgetEl.value;
+    const priority = priorityEl.value;
+    const filteredRows = [];
+
+    rows.forEach((row) => {
+      const show =
+        matches(row, "volume", volume) &&
+        matches(row, "material", material) &&
+        matches(row, "accuracy", accuracy) &&
+        matches(row, "budget", budget);
+      row.style.display = show ? "" : "none";
+      if (show) {
+        filteredRows.push(row);
+      }
+    });
+
+    if (!filteredRows.length) return;
+
+    const prices = filteredRows.map((row) => getNumber(row, "price"));
+    const accuracies = filteredRows.map((row) => getNumber(row, "accuracy-val"));
+    const cycles = filteredRows.map((row) => getNumber(row, "cycle"));
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+    const minAccuracy = Math.min(...accuracies);
+    const maxAccuracy = Math.max(...accuracies);
+    const minCycle = Math.min(...cycles);
+    const maxCycle = Math.max(...cycles);
+
+    filteredRows.forEach((row) => {
+      const price = getNumber(row, "price");
+      const accuracyVal = getNumber(row, "accuracy-val");
+      const cycle = getNumber(row, "cycle");
+      const priceScore = 1 - normalize(price, minPrice, maxPrice);
+      const accuracyScore = 1 - normalize(accuracyVal, minAccuracy, maxAccuracy);
+      const speedScore = 1 - normalize(cycle, minCycle, maxCycle);
+
+      let score = 0;
+      if (priority === "accuracy") {
+        score = accuracyScore * 0.6 + speedScore * 0.25 + priceScore * 0.15;
+      } else if (priority === "speed") {
+        score = speedScore * 0.6 + accuracyScore * 0.25 + priceScore * 0.15;
+      } else if (priority === "budget") {
+        score = priceScore * 0.6 + accuracyScore * 0.25 + speedScore * 0.15;
+      } else {
+        score = accuracyScore * 0.45 + speedScore * 0.35 + priceScore * 0.2;
+      }
+      row.dataset.score = score.toFixed(4);
+    });
+
+    const tbody = document.querySelector("[data-compare-table] tbody");
+    filteredRows
+      .sort((a, b) => parseFloat(b.dataset.score) - parseFloat(a.dataset.score))
+      .forEach((row) => tbody.appendChild(row));
+  };
+
+  [volumeEl, materialEl, accuracyEl, budgetEl, priorityEl].forEach((el) =>
+    el.addEventListener("input", update)
+  );
+  update();
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   setupCalculator();
   setupContactForm();
   setupReveal();
   setupSelector();
   setupDecisionSurvey();
+  setupComparisonFilters();
 });
