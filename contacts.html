@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Контакты и сервис — Finval 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Finval • 2026</div>
+      <nav class="nav-links">
+        <a href="index.html">Гид</a>
+        <a href="roi-calculator.html">ROI-калькулятор</a>
+        <a href="comparison.html">Сравнение</a>
+        <a href="decision.html">Сценарии</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">Контакты Finval</div>
+      <h1>Сервис, поддержка и следующий шаг</h1>
+      <p>
+        Мы сопровождаем проект от консультации до запуска оборудования: анализ требований, подготовка ТЭО,
+        поставка, пусконаладка и регулярное обслуживание.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="mailto:sales@finval.ru">Написать в Finval</a>
+        <a class="button secondary" href="Экономика металлообработки 2026.pdf">PDF-гайд</a>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="grid two">
+        <div class="card">
+          <h3>Что входит в Service-контракт</h3>
+          <p>Ежеквартальный профилактический осмотр и проверка биения шпинделя.</p>
+          <p>Калибровка геометрии, диагностика сервоприводов, замена масла и фильтров.</p>
+          <p>Консультации по режимам обработки и подбору инструмента.</p>
+          <p>Приоритетный доступ к оригинальным запчастям и гарантированный отклик 24–48 часов.</p>
+        </div>
+        <div class="card">
+          <h3>Типовые сроки проекта</h3>
+          <p>Консультация и анализ требований: 2–3 дня.</p>
+          <p>Коммерческое предложение: 5–7 дней.</p>
+          <p>Согласование условий и контракта: 10–14 дней.</p>
+          <p>Производство и доставка: 8–12 недель. Монтаж и пусконаладка: 4–6 недель.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">Связаться с Finval</h2>
+      <div class="grid two" style="margin-top: 24px;">
+        <div class="card">
+          <h3>Контактные данные</h3>
+          <p><strong>Компания:</strong> ООО «Финвал»</p>
+          <p><strong>Web:</strong> finval.ru</p>
+          <p><strong>Email:</strong> sales@finval.ru</p>
+          <p><strong>Телефон:</strong> +7 (495) XXXX-XXXX</p>
+          <p class="small">Мы отвечаем в течение 24 часов в рабочие дни.</p>
+        </div>
+        <div class="card">
+          <h3>Запрос консультации</h3>
+          <form class="form-grid" id="contactForm">
+            <input id="contactName" type="text" placeholder="Имя" required />
+            <input id="contactCompany" type="text" placeholder="Компания" />
+            <input id="contactEmail" type="email" placeholder="Email" required />
+            <textarea id="contactMessage" rows="4" placeholder="Опишите задачу: тип деталей, объем, требования точности" required></textarea>
+            <button class="button" type="submit">Отправить запрос</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">Глоссарий терминов</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Термин</th>
+            <th>Определение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ЧПУ (CNC)</td>
+            <td>Компьютеризированное управление движением инструмента.</td>
+          </tr>
+          <tr>
+            <td>TIR (Runout)</td>
+            <td>Биение шпинделя — показатель точности центрирования (норма &lt; 0.005 мм).</td>
+          </tr>
+          <tr>
+            <td>Класс точности P/N/H</td>
+            <td>P: ±0.005 мм, N: ±0.010 мм, H: ±0.015 мм.</td>
+          </tr>
+          <tr>
+            <td>Пусконаладка</td>
+            <td>Монтаж, калибровка, обучение, пробный запуск.</td>
+          </tr>
+          <tr>
+            <td>ROI</td>
+            <td>Return on Investment — (прибыль / вложение × 100%).</td>
+          </tr>
+          <tr>
+            <td>ШОМ</td>
+            <td>Система охлаждения на выходе машины, критична для точности.</td>
+          </tr>
+          <tr>
+            <td>Service-контракт</td>
+            <td>Договор на техническое обслуживание и поддержку.</td>
+          </tr>
+          <tr>
+            <td>Наработка</td>
+            <td>Количество часов работы станка для планирования ТО.</td>
+          </tr>
+          <tr>
+            <td>MES</td>
+            <td>Manufacturing Execution System — система управления производством.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Гайд подготовлен Finval. Если нужен Excel-калькулятор или коммерческое предложение — отправьте запрос через форму.
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

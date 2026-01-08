@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROI-калькулятор Finval 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Finval • 2026</div>
+      <nav class="nav-links">
+        <a href="index.html">Гид</a>
+        <a href="roi-calculator.html">ROI-калькулятор</a>
+        <a href="comparison.html">Сравнение</a>
+        <a href="decision.html">Сценарии</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">Интерактивный расчет</div>
+      <h1>ROI-калькулятор окупаемости CNC</h1>
+      <p>
+        Заполните параметры — формулы пересчитываются в режиме реального времени. Используйте эти
+        значения для переговоров с инвесторами и планирования загрузки.
+      </p>
+      <div class="hero-actions">
+        <button class="button" id="pdfExport">Экспорт PDF</button>
+        <button class="button secondary" id="emailResults">Отправить по email</button>
+      </div>
+    </section>
+
+    <section class="section container" data-calculator>
+      <div class="calculator">
+        <div class="calc-group">
+          <h4>1. Инвестиции</h4>
+          <div class="input-row">
+            <label for="equipmentCost">Стоимость оборудования, млн ₽</label>
+            <input id="equipmentCost" type="number" value="50" min="0" step="0.1" />
+          </div>
+          <div class="input-row">
+            <label for="commissioningPercent">Пусконаладка и комиссионирование, %</label>
+            <input id="commissioningPercent" type="number" value="25" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label>Итого инвестиция</label>
+            <div class="output" id="investmentTotal">—</div>
+          </div>
+          <p class="small">Рекомендованный резерв Finval: 25% от стоимости оборудования.</p>
+        </div>
+
+        <div class="calc-group">
+          <h4>2. Производство</h4>
+          <div class="input-row">
+            <label for="workDays">Рабочих дней в году</label>
+            <input id="workDays" type="number" value="250" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="shiftsPerDay">Смен в день</label>
+            <input id="shiftsPerDay" type="number" value="2" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="hoursPerShift">Часов в смене</label>
+            <input id="hoursPerShift" type="number" value="8" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label for="utilizationPercent">Коэффициент использования, %</label>
+            <input id="utilizationPercent" type="number" value="85" min="0" step="1" />
+          </div>
+          <div class="input-row">
+            <label>Доступные часы</label>
+            <div class="output" id="availableHours">—</div>
+          </div>
+          <div class="input-row">
+            <label>Эффективные часы</label>
+            <div class="output" id="effectiveHours">—</div>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <h4>3. Затраты на час</h4>
+          <div class="input-row">
+            <label>Амортизация (по 34 000 ч)</label>
+            <div class="output" id="depreciation">—</div>
+          </div>
+          <div class="input-row">
+            <label for="operatorSalary">Зарплата оператора, ₽/мес</label>
+            <input id="operatorSalary" type="number" value="120000" min="0" step="1000" />
+          </div>
+          <div class="input-row">
+            <label>Оплата труда</label>
+            <div class="output" id="laborCost">—</div>
+          </div>
+          <div class="input-row">
+            <label for="energyCost">Энергозатраты, ₽/час</label>
+            <input id="energyCost" type="number" value="600" min="0" step="10" />
+          </div>
+          <div class="input-row">
+            <label for="toolCost">Инструмент и оснастка, ₽/час</label>
+            <input id="toolCost" type="number" value="1000" min="0" step="10" />
+          </div>
+          <div class="input-row">
+            <label for="servicePercent">Service-контракт, % от инвестиций</label>
+            <input id="servicePercent" type="number" value="4" min="0" step="0.1" />
+          </div>
+          <div class="input-row">
+            <label>Техническое обслуживание</label>
+            <div class="output" id="maintenanceCost">—</div>
+          </div>
+          <div class="input-row">
+            <label>Итого затраты на час</label>
+            <div class="output" id="totalCostHour">—</div>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <h4>4. Выручка</h4>
+          <div class="input-row">
+            <label for="partPrice">Цена готовой детали, ₽</label>
+            <input id="partPrice" type="number" value="15000" min="0" step="100" />
+          </div>
+          <div class="input-row">
+            <label for="partsPerHour">Деталей в час, шт</label>
+            <input id="partsPerHour" type="number" value="1" min="0" step="0.1" />
+          </div>
+          <div class="input-row">
+            <label>Выручка на час</label>
+            <div class="output" id="revenueHour">—</div>
+          </div>
+          <div class="input-row">
+            <label>Выручка в год</label>
+            <div class="output" id="revenueYear">—</div>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <h4>5. Прибыль и ROI</h4>
+          <div class="input-row">
+            <label>Затраты в год</label>
+            <div class="output" id="costsYear">—</div>
+          </div>
+          <div class="input-row">
+            <label>Чистая прибыль в год</label>
+            <div class="output" id="profitYear">—</div>
+          </div>
+          <div class="input-row">
+            <label>Срок окупаемости</label>
+            <div class="output" id="paybackMonths">—</div>
+          </div>
+          <div class="input-row">
+            <label>ROI в год</label>
+            <div class="output" id="roiYear">—</div>
+          </div>
+          <div class="input-row">
+            <label>ROI за 3 года</label>
+            <div class="output" id="roi3Year">—</div>
+          </div>
+          <div class="notice">
+            Формулы соответствуют Excel-таблице из гида Finval. Если прибыль отрицательная, пересмотрите
+            загрузку, цену детали или инвестиции.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Экспорт PDF формирует краткий отчет по расчетам. Для детальной проработки запросите консультацию Finval.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
