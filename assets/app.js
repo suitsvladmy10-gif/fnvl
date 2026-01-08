@@ -110,37 +110,6 @@ const setupCalculator = () => {
   inputs.forEach((input) => input.addEventListener("input", update));
   update();
 
-  const pdfButton = document.getElementById("pdfExport");
-  if (pdfButton) {
-    pdfButton.addEventListener("click", () => {
-      const data = calculateRoi();
-      if (!window.jspdf) {
-        window.print();
-        return;
-      }
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.setFont("helvetica", "bold");
-      doc.text("Экономика металлообработки 2026", 14, 20);
-      doc.setFont("helvetica", "normal");
-      doc.text("Результаты ROI-калькулятора", 14, 30);
-      let y = 42;
-      const addLine = (label, value) => {
-        doc.text(`${label}: ${value}`, 14, y);
-        y += 8;
-      };
-      addLine("Инвестиция", `${formatRubles(data.investmentM, 2)} млн ₽`);
-      addLine("Эффективные часы", `${formatRubles(data.effectiveHours)} ч/год`);
-      addLine("Затраты на час", `${formatRubles(data.totalCostHour)} ₽`);
-      addLine("Выручка на час", `${formatRubles(data.revenueHour)} ₽`);
-      addLine("Прибыль в год", `${formatRubles(data.profitYear, 2)} млн ₽`);
-      addLine("Окупаемость", data.paybackMonths ? `${formatRubles(data.paybackMonths, 1)} мес` : "—");
-      addLine("ROI в год", data.roiYear ? `${formatRubles(data.roiYear, 1)}%` : "—");
-      addLine("ROI за 3 года", data.roi3Year ? `${formatRubles(data.roi3Year, 1)}%` : "—");
-      doc.save("ROI-Finval-2026.pdf");
-    });
-  }
-
   const emailButton = document.getElementById("emailResults");
   if (emailButton) {
     emailButton.addEventListener("click", () => {
@@ -193,8 +162,132 @@ const setupReveal = () => {
   });
 };
 
+const setupSelector = () => {
+  const root = document.querySelector("[data-selector]");
+  if (!root) return;
+
+  const catalog = [
+    {
+      id: "FVA",
+      type: "vertical",
+      name: "FVA серия",
+      power: 11,
+      rpm: 8000,
+      note: "Вертикально-фрезерные центры, опции до 15 000 об/мин.",
+    },
+    {
+      id: "FVC",
+      type: "vertical",
+      name: "FVC серия",
+      power: 15,
+      rpm: 10000,
+      note: "Универсальные вертикальные центры, опции до 18 000 об/мин.",
+    },
+    {
+      id: "FVC-H",
+      type: "vertical",
+      name: "FVC/H серия",
+      power: 18.5,
+      rpm: 8000,
+      note: "Высокая жесткость и нагрузка, опции до 18 000 об/мин.",
+    },
+    {
+      id: "FAR-300B",
+      type: "five-axis",
+      name: "FAR-300B",
+      power: 19.5,
+      rpm: 24000,
+      note: "5-осевой центр с высокой скоростью шпинделя.",
+    },
+    {
+      id: "FAR-300AU",
+      type: "five-axis",
+      name: "FAR-300AU",
+      power: 18.5,
+      rpm: 18000,
+      note: "5-осевой центр для сложной геометрии.",
+    },
+    {
+      id: "FAR-600B",
+      type: "five-axis",
+      name: "FAR-600B",
+      power: 18.5,
+      rpm: 18000,
+      note: "5-осевой центр для среднего габарита.",
+    },
+    {
+      id: "FS-46TY",
+      type: "turning",
+      name: "FS-46TY",
+      power: 5.5,
+      rpm: 6000,
+      note: "Токарный центр для серийной обработки.",
+    },
+    {
+      id: "FF-32/38BSYB",
+      type: "swiss",
+      name: "FF-32/38BSYB",
+      power: 7.5,
+      rpm: 6000,
+      note: "Автомат продольного точения с осью B.",
+    },
+    {
+      id: "FPC-2516",
+      type: "portal",
+      name: "FPC-2516",
+      power: 18.5,
+      rpm: 6000,
+      note: "Портальный центр для крупногабаритных деталей.",
+    },
+  ];
+
+  const typeSelect = document.getElementById("machineType");
+  const powerInput = document.getElementById("machinePower");
+  const speedInput = document.getElementById("machineSpeed");
+  const resultEl = document.getElementById("selectorResult");
+  const altEl = document.getElementById("selectorAlternatives");
+
+  const scoreMachine = (machine, power, rpm) => {
+    let score = 0;
+    if (power > 0) score += Math.abs(power - machine.power) / power;
+    if (rpm > 0) score += Math.abs(rpm - machine.rpm) / rpm;
+    return score;
+  };
+
+  const update = () => {
+    const type = typeSelect.value;
+    const power = parseFloat(powerInput.value) || 0;
+    const rpm = parseFloat(speedInput.value) || 0;
+    let list = catalog;
+    if (type !== "any") {
+      list = list.filter((item) => item.type === type);
+    }
+    if (!list.length) {
+      resultEl.textContent = "Под этот тип оборудования модели не найдены.";
+      altEl.textContent = "";
+      return;
+    }
+    const ranked = list
+      .map((item) => ({ item, score: scoreMachine(item, power, rpm) }))
+      .sort((a, b) => a.score - b.score);
+    const best = ranked[0].item;
+    resultEl.textContent = `${best.name} — ${best.power} кВт, ${best.rpm} об/мин. ${best.note}`;
+
+    const alt = ranked.slice(1, 3).map((row) => row.item);
+    altEl.textContent = alt.length
+      ? `Альтернативы: ${alt.map((item) => item.name).join(", ")}.`
+      : "";
+  };
+
+  [typeSelect, powerInput, speedInput].forEach((el) =>
+    el.addEventListener("input", update)
+  );
+  update();
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   setupCalculator();
   setupContactForm();
   setupReveal();
+  setupSelector();
 });
