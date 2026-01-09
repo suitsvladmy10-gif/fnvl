@@ -1,16 +1,16 @@
 :root {
   color-scheme: light;
-  --ink: #1f2a36;
-  --ink-muted: #435262;
-  --steel: #23323f;
-  --sand: #f5f1ea;
-  --gold: #d59a3f;
-  --copper: #b46b2d;
-  --sage: #7a8f82;
-  --mist: #e2e7e1;
+  --ink: #111827;
+  --ink-muted: #4b5563;
+  --steel: #0f172a;
+  --sand: #f6f5f2;
+  --gold: #f97316;
+  --copper: #ea580c;
+  --sage: #14b8a6;
+  --mist: #e7e5e4;
   --card: #ffffff;
-  --stroke: rgba(31, 42, 54, 0.12);
-  --shadow: 0 20px 50px rgba(32, 40, 51, 0.15);
+  --stroke: rgba(15, 23, 42, 0.12);
+  --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-sm: 12px;
@@ -26,9 +26,9 @@ body {
   margin: 0;
   font-family: var(--font-text);
   color: var(--ink);
-  background: radial-gradient(circle at top right, rgba(213, 154, 63, 0.2), transparent 40%),
-    radial-gradient(circle at 15% 30%, rgba(122, 143, 130, 0.2), transparent 45%),
-    linear-gradient(120deg, #f7f4ee 0%, #eef1ee 55%, #f9f3ea 100%);
+  background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 40%),
+    radial-gradient(circle at 10% 30%, rgba(20, 184, 166, 0.18), transparent 45%),
+    linear-gradient(120deg, #f9f8f6 0%, #eef2f7 55%, #f6f5f2 100%);
   min-height: 100vh;
 }
 
@@ -72,7 +72,7 @@ header {
   top: 0;
   z-index: 10;
   backdrop-filter: blur(16px);
-  background: rgba(245, 241, 234, 0.9);
+  background: rgba(250, 250, 249, 0.9);
   border-bottom: 1px solid var(--stroke);
 }
 
@@ -101,8 +101,8 @@ header {
 
 .hero {
   margin-top: 60px;
-  background: linear-gradient(130deg, rgba(31, 42, 54, 0.92), rgba(31, 42, 54, 0.7)),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400"><rect width="1200" height="400" fill="%2323323f"/><path d="M0 320 Q200 260 400 320 T800 320 T1200 320" fill="%23d59a3f" opacity="0.4"/></svg>');
+  background: linear-gradient(130deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.75)),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400"><rect width="1200" height="400" fill="%230f172a"/><path d="M0 320 Q200 260 400 320 T800 320 T1200 320" fill="%23f97316" opacity="0.35"/></svg>');
   color: #f8f5ee;
   padding: 70px 8vw;
   border-radius: var(--radius-lg);
@@ -117,7 +117,7 @@ header {
   inset: -40% -20% auto auto;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle, rgba(213, 154, 63, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.5), transparent 70%);
 }
 
 .hero h1 {
@@ -149,7 +149,7 @@ header {
   border-radius: 999px;
   border: 1px solid transparent;
   background: var(--gold);
-  color: #1b1f23;
+  color: #1f2937;
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -157,8 +157,8 @@ header {
 
 .button.secondary {
   background: transparent;
-  border-color: rgba(248, 245, 238, 0.6);
-  color: #f8f5ee;
+  border-color: rgba(248, 250, 252, 0.6);
+  color: #f8fafc;
 }
 
 .section {
@@ -216,7 +216,7 @@ header {
   gap: 8px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(213, 154, 63, 0.15);
+  background: rgba(249, 115, 22, 0.14);
   color: var(--copper);
   font-weight: 700;
   font-size: 12px;
@@ -340,7 +340,7 @@ textarea:focus {
 }
 
 .notice {
-  background: rgba(122, 143, 130, 0.12);
+  background: rgba(20, 184, 166, 0.12);
   border-radius: var(--radius-md);
   padding: 16px;
   color: var(--ink-muted);
