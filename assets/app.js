@@ -181,8 +181,9 @@ const setupSelector = () => {
 
   const scoreMachine = (machine, power, rpm) => {
     let score = 0;
-    if (power > 0) score += Math.abs(power - machine.power) / power;
-    if (rpm > 0) score += Math.abs(rpm - machine.rpm) / rpm;
+    // Lower score is better - we want closest match
+    if (power > 0 && machine.power > 0) score += Math.abs(power - machine.power) / power;
+    if (rpm > 0 && machine.rpm > 0) score += Math.abs(rpm - machine.rpm) / rpm;
     return score;
   };
 
