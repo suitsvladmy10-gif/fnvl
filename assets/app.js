@@ -24,6 +24,11 @@ const setText = (id, value) => {
 };
 
 const calculateRoi = () => {
+  // Нормативный срок службы оборудования в часах для расчета амортизации
+  const ASSET_LIFETIME_HOURS = 34000;
+  // Среднее количество рабочих часов в месяце для расчета стоимости часа оператора
+  const AVG_MONTHLY_WORK_HOURS = 170;
+
   const equipmentCost = getValue("equipmentCost");
   const commissioningPercent = getValue("commissioningPercent");
   const investmentM = equipmentCost * (1 + commissioningPercent / 100);
@@ -42,8 +47,8 @@ const calculateRoi = () => {
   const servicePercent = getValue("servicePercent");
 
   const investmentRub = investmentM * 1_000_000;
-  const depreciation = investmentRub / 34000;
-  const laborCost = operatorSalary / 170;
+  const depreciation = investmentRub / ASSET_LIFETIME_HOURS;
+  const laborCost = operatorSalary / AVG_MONTHLY_WORK_HOURS;
   const maintenanceCost =
     effectiveHours > 0
       ? (investmentRub * (servicePercent / 100)) / effectiveHours
@@ -152,12 +157,14 @@ const setupContactForm = () => {
 const setupReveal = () => {
   const sections = document.querySelectorAll(".section");
   sections.forEach((section, index) => {
-    section.style.opacity = "0";
-    section.style.transform = "translateY(20px)";
-    section.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    // Set initial state via class
+    section.classList.add("section--hidden");
+    // Set staggered delay. This is an acceptable use of inline style as it's dynamic.
+    section.style.transitionDelay = `${index * 0.1}s`;
+
+    // Trigger the animation after the initial styles have been applied
     requestAnimationFrame(() => {
-      section.style.opacity = "1";
-      section.style.transform = "translateY(0)";
+      section.classList.remove("section--hidden");
     });
   });
 };
@@ -165,81 +172,6 @@ const setupReveal = () => {
 const setupSelector = () => {
   const root = document.querySelector("[data-selector]");
   if (!root) return;
-
-  const catalog = [
-    {
-      id: "FVA",
-      type: "vertical",
-      name: "FVA серия",
-      power: 11,
-      rpm: 8000,
-      note: "Вертикально-фрезерные центры, опции до 15 000 об/мин.",
-    },
-    {
-      id: "FVC",
-      type: "vertical",
-      name: "FVC серия",
-      power: 15,
-      rpm: 10000,
-      note: "Универсальные вертикальные центры, опции до 18 000 об/мин.",
-    },
-    {
-      id: "FVC-H",
-      type: "vertical",
-      name: "FVC/H серия",
-      power: 18.5,
-      rpm: 8000,
-      note: "Высокая жесткость и нагрузка, опции до 18 000 об/мин.",
-    },
-    {
-      id: "FAR-300B",
-      type: "five-axis",
-      name: "FAR-300B",
-      power: 19.5,
-      rpm: 24000,
-      note: "5-осевой центр с высокой скоростью шпинделя.",
-    },
-    {
-      id: "FAR-300AU",
-      type: "five-axis",
-      name: "FAR-300AU",
-      power: 18.5,
-      rpm: 18000,
-      note: "5-осевой центр для сложной геометрии.",
-    },
-    {
-      id: "FAR-600B",
-      type: "five-axis",
-      name: "FAR-600B",
-      power: 18.5,
-      rpm: 18000,
-      note: "5-осевой центр для среднего габарита.",
-    },
-    {
-      id: "FS-46TY",
-      type: "turning",
-      name: "FS-46TY",
-      power: 5.5,
-      rpm: 6000,
-      note: "Токарный центр для серийной обработки.",
-    },
-    {
-      id: "FF-32/38BSYB",
-      type: "swiss",
-      name: "FF-32/38BSYB",
-      power: 7.5,
-      rpm: 6000,
-      note: "Автомат продольного точения с осью B.",
-    },
-    {
-      id: "FPC-2516",
-      type: "portal",
-      name: "FPC-2516",
-      power: 18.5,
-      rpm: 6000,
-      note: "Портальный центр для крупногабаритных деталей.",
-    },
-  ];
 
   const typeSelect = document.getElementById("machineType");
   const powerInput = document.getElementById("machinePower");
@@ -254,7 +186,8 @@ const setupSelector = () => {
     return score;
   };
 
-  const update = () => {
+  const update = (catalog) => {
+    if (!catalog) return;
     const type = typeSelect.value;
     const power = parseFloat(powerInput.value) || 0;
     const rpm = parseFloat(speedInput.value) || 0;
@@ -279,10 +212,23 @@ const setupSelector = () => {
       : "";
   };
 
-  [typeSelect, powerInput, speedInput].forEach((el) =>
-    el.addEventListener("input", update)
-  );
-  update();
+  fetch("./catalog.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((catalog) => {
+      [typeSelect, powerInput, speedInput].forEach((el) =>
+        el.addEventListener("input", () => update(catalog))
+      );
+      update(catalog);
+    })
+    .catch((error) => {
+      console.error("Could not load catalog:", error);
+      resultEl.textContent = "Не удалось загрузить каталог оборудования.";
+    });
 };
 
 const setupDecisionSurvey = () => {
@@ -429,6 +375,7 @@ const setupComparisonFilters = () => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
+  loadHeader();
   setupCalculator();
   setupContactForm();
   setupReveal();
@@ -436,3 +383,32 @@ window.addEventListener("DOMContentLoaded", () => {
   setupDecisionSurvey();
   setupComparisonFilters();
 });
+
+const loadHeader = async () => {
+  const headerElement = document.querySelector("header");
+  if (!headerElement) return;
+
+  try {
+    const response = await fetch("header.html");
+    if (!response.ok) {
+      throw new Error(`Header not found: ${response.statusText}`);
+    }
+    const headerHTML = await response.text();
+    headerElement.innerHTML = headerHTML;
+
+    // Highlight active page link
+    const currentPageName = window.location.pathname.split("/").pop();
+    const activePage = currentPageName === '' ? 'index.html' : currentPageName;
+
+    const navLinks = headerElement.querySelectorAll(".nav-links a");
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href") === activePage) {
+        link.classList.add("active");
+      }
+    });
+  } catch (error) {
+    console.error("Failed to load header:", error);
+    // Provide a fallback UI in case the header fails to load
+    headerElement.innerHTML = "<div class='navbar'><div class='logo'>Finval • 2026</div><nav class='nav-links' style='color:red;'>Could not load navigation</nav></div>";
+  }
+};
