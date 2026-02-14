@@ -382,6 +382,7 @@ window.addEventListener("DOMContentLoaded", () => {
   setupSelector();
   setupDecisionSurvey();
   setupComparisonFilters();
+  setupPodborFilter();
 });
 
 const loadHeader = async () => {
@@ -411,4 +412,112 @@ const loadHeader = async () => {
     // Provide a fallback UI in case the header fails to load
     headerElement.innerHTML = "<div class='navbar'><div class='logo'>Finval • 2026</div><nav class='nav-links' style='color:red;'>Could not load navigation</nav></div>";
   }
+};
+
+const setupPodborFilter = () => {
+  const form = document.getElementById("podborForm");
+  if (!form) return;
+
+  const resultEl = document.getElementById("podborResult");
+
+  // Helper to parse messy string values into clean numbers
+  const parsePodborValue = (value) => {
+    if (typeof value === 'number') {
+      return value;
+    }
+    if (typeof value !== 'string' || value.trim() === '' || value.trim() === '—') {
+      return 0;
+    }
+    // Take the first part of a complex string (e.g., "400 / 200 / 200" -> "400")
+    // And remove all non-digit characters except for a decimal point.
+    const cleanedString = value.split('/')[0].replace(/[^0-9.]/g, '').trim();
+    const number = parseFloat(cleanedString);
+    return Number.isFinite(number) ? number : 0;
+  };
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    resultEl.innerHTML = `<p class="notice">Подбираем модель...</p>`;
+
+    try {
+      const response = await fetch("podbor.json");
+      if (!response.ok) throw new Error("Could not load machine data.");
+
+      const rawData = await response.json();
+
+      // Clean and pre-process the data
+      const machines = rawData
+        .filter(item => item["Серия / Модель"] && item["Серия / Модель"].trim() !== "")
+        .map(item => ({
+          model: item["Серия / Модель"],
+          type: item["Назначение / Тип обработки"],
+          x: parsePodborValue(item["Перемещение X/Y/Z (мм)"]),
+          power: parsePodborValue(item["Мощность шпинделя (кВт)"]),
+          rpm: parsePodborValue(item["Частота вращения (об/мин)"]),
+          load: parsePodborValue(item["Макс. нагрузка / Масса детали (кг)"]),
+          raw: item // Keep raw data for display
+        }));
+
+      // Get user input
+      const userInput = {
+        x: getValue("podborX"),
+        power: getValue("podborPower"),
+        rpm: getValue("podborRpm"),
+        load: getValue("podborLoad"),
+      };
+      
+      // Filter candidates: must be >= user input in all specified fields
+      const candidates = machines.filter(m => {
+        return (userInput.x > 0 ? m.x >= userInput.x : true) &&
+               (userInput.power > 0 ? m.power >= userInput.power : true) &&
+               (userInput.rpm > 0 ? m.rpm >= userInput.rpm : true) &&
+               (userInput.load > 0 ? m.load >= userInput.load : true);
+      });
+
+      if (candidates.length === 0) {
+        resultEl.innerHTML = `<div class="notice">Не найдено моделей, удовлетворяющих всем вашим критериям. Попробуйте смягчить требования.</div>`;
+        return;
+      }
+
+      // Score and find the best candidate
+      const scoredCandidates = candidates.map(m => {
+        let score = 0;
+        if (userInput.x > 0) score += (m.x - userInput.x) / userInput.x;
+        if (userInput.power > 0) score += (m.power - userInput.power) / userInput.power;
+        if (userInput.rpm > 0) score += (m.rpm - userInput.rpm) / userInput.rpm;
+        if (userInput.load > 0) score += (m.load - userInput.load) / userInput.load;
+        return { ...m, score };
+      });
+      
+      scoredCandidates.sort((a, b) => a.score - b.score);
+      const bestMatch = scoredCandidates[0];
+
+      // Display the result
+      resultEl.innerHTML = `
+        <div class="card">
+          <h3>Рекомендованная модель: <span class="output">${bestMatch.model}</span></h3>
+          <p>${bestMatch.type}</p>
+          <table class="table" style="margin-top: 16px;">
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>Требование</th>
+                <th>Значение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Перемещение X, мм</td><td>&ge; ${userInput.x || 'N/A'}</td><td><strong>${bestMatch.x}</strong></td></tr>
+              <tr><td>Мощность, кВт</td><td>&ge; ${userInput.power || 'N/A'}</td><td><strong>${bestMatch.power}</strong></td></tr>
+              <tr><td>Вращение, об/мин</td><td>&ge; ${userInput.rpm || 'N/A'}</td><td><strong>${bestMatch.rpm}</strong></td></tr>
+              <tr><td>Нагрузка, кг</td><td>&ge; ${userInput.load || 'N/A'}</td><td><strong>${bestMatch.load}</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+
+    } catch (error) {
+      console.error("Failed during machine selection:", error);
+      resultEl.innerHTML = `<div class="notice" style="color: var(--copper);">Ошибка: Не удалось загрузить или обработать данные для подбора.</div>`;
+    }
+  });
 };

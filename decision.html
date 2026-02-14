@@ -27,6 +27,37 @@
       </div>
     </section>
 
+    <section class="section container" id="podbor-tool">
+      <h2 class="section-title">Подбор оборудования по параметрам</h2>
+      <p class="section-subtitle">
+        Введите минимальные требуемые характеристики. Система подберет наиболее подходящую модель из доступного каталога, параметры которой не меньше заданных.
+      </p>
+      <form class="card" id="podborForm" style="margin-top: 24px;">
+        <div class="grid two">
+          <div class="input-row">
+            <label for="podborX">Перемещение X, мм</label>
+            <input id="podborX" type="number" placeholder="например, 500" min="0" />
+          </div>
+          <div class="input-row">
+            <label for="podborPower">Мощность шпинделя, кВт</label>
+            <input id="podborPower" type="number" placeholder="например, 15" min="0" />
+          </div>
+          <div class="input-row">
+            <label for="podborRpm">Частота вращения, об/мин</label>
+            <input id="podborRpm" type="number" placeholder="например, 10000" min="0" />
+          </div>
+          <div class="input-row">
+            <label for="podborLoad">Нагрузка на стол, кг</label>
+            <input id="podborLoad" type="number" placeholder="например, 300" min="0" />
+          </div>
+        </div>
+        <div class="actions" style="margin-top: 16px;">
+          <button type="submit" class="button">Подобрать модель</button>
+        </div>
+      </form>
+      <div id="podborResult" style="margin-top: 24px;"></div>
+    </section>
+
     <section class="section container" data-decision>
       <h2 class="section-title">Интерактивный опрос выбора</h2>
       <p class="section-subtitle">
