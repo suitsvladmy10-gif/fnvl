@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Практическое руководство по выбору металлообрабатывающего оборудования: фрезерные, токарные, 5-осевые центры. ROI-калькулятор, формулы расчета окупаемости и рекомендации на основе 500+ внедрений." />
+  <meta name="description" content="Гид по выбору металлообрабатывающего оборудования Finval 2026. ROI-калькулятор, сравнение станков, каталог. Окупите оборудование на 20% быстрее." />
   <title>Экономика металлообработки 2026 — гид Finval</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -15,243 +12,206 @@
   </header>
 
   <main>
+    <!-- Hero Section -->
     <section class="hero">
-      <div class="tag">Экономика металлообработки 2026</div>
-      <h1>Как выбрать металлообрабатывающее оборудование (фрезерные, токарные, 5-осевые центры) и окупить его на 20% быстрее</h1>
-      <p>
-        Практическое руководство для инженеров и руководителей производств на основе анализа
-        500+ внедрений, 2000+ контрактов FINИСТ и 14 типов оборудования. Здесь собраны ключевые ошибки,
-        формулы ROI и решения для разных объемов производства.
-      </p>
-      <div class="hero-actions">
-        <a class="button" href="roi-calculator.html">Рассчитать окупаемость</a>
-        <a class="button secondary" href="comparison.html">Сравнить оборудование</a>
-      </div>
-    </section>
-
-    <section class="section container">
-      <h2 class="section-title">Почему это важно</h2>
-      <p class="section-subtitle">
-        Инвестиции в CNC-оборудование варьируются от 10–15 млн ₽ (FVC-1100) до 150–250 млн ₽
-        (5-осевые FAU-80 и автоматы FF-38). Ошибка в выборе станции приводит к простоям на 3–6 месяцев,
-        15–20% брака и потере бюджета до 50%.
-      </p>
-      <div class="grid three" style="margin-top: 24px;">
-        <div class="card">
-          <h3>Скорость запуска</h3>
-          <p>Игнорирование пусконаладки задерживает ввод на 8–10 недель и усложняет согласование бюджета.</p>
-        </div>
-        <div class="card">
-          <h3>Качество и точность</h3>
-          <p>Неправильный класс жесткости шпинделя увеличивает брак на 15–20% и снижает точность до ±0.015 мм.</p>
-        </div>
-        <div class="card">
-          <h3>Функции и бюджет</h3>
-          <p>Переплата за ненужные функции достигает 30–50% стоимости, особенно при ошибке в типе станка.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container" data-calculator>
-      <h2 class="section-title">Быстрый ROI-калькулятор</h2>
-      <p class="section-subtitle">
-        Введите параметры — результаты пересчитываются автоматически. Для детального расчета
-        откройте полную версию калькулятора.
-      </p>
-      <div class="calculator" style="margin-top: 24px;">
-        <div class="calc-group">
-          <h4>1. Инвестиции</h4>
-          <div class="input-row">
-            <label for="equipmentCost">Стоимость оборудования, млн ₽</label>
-            <input id="equipmentCost" type="number" value="50" min="0" step="0.1" />
-          </div>
-          <div class="input-row">
-            <label for="commissioningPercent">Пусконаладка и комиссионирование, %</label>
-            <input id="commissioningPercent" type="number" value="25" min="0" step="1" />
-          </div>
-          <div class="input-row">
-            <label>Итого инвестиция</label>
-            <div class="output" id="investmentTotal">—</div>
-          </div>
-        </div>
-
-        <div class="calc-group">
-          <h4>2. Производство</h4>
-          <div class="input-row">
-            <label for="workDays">Рабочих дней в году</label>
-            <input id="workDays" type="number" value="250" min="0" step="1" />
-          </div>
-          <div class="input-row">
-            <label for="shiftsPerDay">Смен в день</label>
-            <input id="shiftsPerDay" type="number" value="2" min="0" step="1" />
-          </div>
-          <div class="input-row">
-            <label for="hoursPerShift">Часов в смене</label>
-            <input id="hoursPerShift" type="number" value="8" min="0" step="1" />
-          </div>
-          <div class="input-row">
-            <label for="utilizationPercent">Коэффициент использования, %</label>
-            <input id="utilizationPercent" type="number" value="85" min="0" step="1" />
-          </div>
-          <div class="input-row">
-            <label>Эффективные часы</label>
-            <div class="output" id="effectiveHours">—</div>
-          </div>
-        </div>
-
-        <div class="calc-group">
-          <h4>3. Затраты на час</h4>
-          <div class="input-row">
-            <label>Амортизация</label>
-            <div class="output" id="depreciation">—</div>
-          </div>
-          <div class="input-row">
-            <label for="operatorSalary">Зарплата оператора, ₽/мес</label>
-            <input id="operatorSalary" type="number" value="120000" min="0" step="1000" />
-          </div>
-          <div class="input-row">
-            <label>Оплата труда</label>
-            <div class="output" id="laborCost">—</div>
-          </div>
-          <div class="input-row">
-            <label for="energyCost">Энергозатраты, ₽/час</label>
-            <input id="energyCost" type="number" value="600" min="0" step="10" />
-          </div>
-          <div class="input-row">
-            <label for="toolCost">Инструмент и оснастка, ₽/час</label>
-            <input id="toolCost" type="number" value="1000" min="0" step="10" />
-          </div>
-          <div class="input-row">
-            <label for="servicePercent">Service-контракт, % от инвестиций</label>
-            <input id="servicePercent" type="number" value="4" min="0" step="0.1" />
-          </div>
-          <div class="input-row">
-            <label>Итого затраты на час</label>
-            <div class="output" id="totalCostHour">—</div>
-          </div>
-        </div>
-
-        <div class="calc-group">
-          <h4>4. Выручка и ROI</h4>
-          <div class="input-row">
-            <label for="partPrice">Цена готовой детали, ₽</label>
-            <input id="partPrice" type="number" value="15000" min="0" step="100" />
-          </div>
-          <div class="input-row">
-            <label for="partsPerHour">Деталей в час, шт</label>
-            <input id="partsPerHour" type="number" value="1" min="0" step="0.1" />
-          </div>
-          <div class="input-row">
-            <label>Выручка на час</label>
-            <div class="output" id="revenueHour">—</div>
-          </div>
-          <div class="input-row">
-            <label>Прибыль в год</label>
-            <div class="output" id="profitYear">—</div>
-          </div>
-          <div class="input-row">
-            <label>Срок окупаемости</label>
-            <div class="output" id="paybackMonths">—</div>
-          </div>
-          <div class="input-row">
-            <label>ROI в год</label>
-            <div class="output" id="roiYear">—</div>
-          </div>
-          <div class="actions" style="margin-top: 12px;">
-            <a class="button" href="roi-calculator.html">Полная версия калькулятора</a>
-            <a class="button secondary" href="contacts.html">Получить расчет</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container">
-      <h2 class="section-title">5 критических ошибок</h2>
-      <div class="grid two" style="margin-top: 24px;">
-        <div class="card">
-          <h3>Ошибка №1. Жесткость станины и направляющие</h3>
-          <p>
-            Разные типы направляющих дают разные результаты: FVA-B (скольжение) подходит для мягких материалов,
-            FVC (качения) — для алюминия. Для титана нужна мощность 15+ кВт и усиленный шпиндель.
-            Итог ошибок: 50–150 тыс ₽ на инструмент и 5–15% брака.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Ошибка №2. Пусконаладка не в бюджете</h3>
-          <p>
-            Скрытые затраты составляют 15–25% стоимости станка, включая монтаж, калибровку и обучение операторов.
-            FAU-80 требует 93 кВА энергоснабжения и 4–8 недель наладки (до 10 млн ₽), FVC-1100 — 2–3 недели.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Ошибка №3. Инструмент и оснастка</h3>
-          <p>
-            Непрогнозируемый расход инструмента приводит к простоям и росту затрат.
-          </p>
-          <table class="table" style="margin-top: 12px;">
-            <thead>
-              <tr>
-                <th>Тип оборудования</th>
-                <th>Инструмент в год</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>FVC</td>
-                <td>8–12%</td>
-              </tr>
-              <tr>
-                <td>FAU-60</td>
-                <td>10–15%</td>
-              </tr>
-              <tr>
-                <td>Автоматы FF</td>
-                <td>12–18%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card">
-          <h3>Ошибка №4. Неправильный тип станка</h3>
-          <p>
-            Матрица выбора вместо догадок: для мелкосерийного производства — FVC-1100, для массового
-            (валы) — FF-38AS (50–100 деталей/час), для высокоточного — FAR-600B (±0.006 мм).
-          </p>
-        </div>
-        <div class="card">
-          <h3>Ошибка №5. Нет плана ТО</h3>
-          <p>
-            Регламент: каждые 500 ч — масло в шпиндель, каждые 1000 ч — проверка люфта направляющих (FVC),
-            каждые 2000 ч — калибровка осей (FAR, FAU), раз в год — ревизия ЧПУ.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Как избежать</h3>
-          <p>
-            Включайте резерв 25%, согласуйте класс точности, обеспечьте план сервисного обслуживания
-            и заведите регламентный журнал ТО.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container">
-      <div class="card">
-        <h2 class="section-title">Основано на аналитике Finval 2026</h2>
-        <p class="section-subtitle">
-          Вся информация на сайте собрана из аналитических материалов Finval и реальных проектов внедрения.
+      <div class="container">
+        <span class="hero-tag">Экономика металлообработки 2026</span>
+        <h1>Выберите <span class="highlight">правильное оборудование</span> и окупите его быстрее</h1>
+        <p class="hero-subtitle">
+          Практический гид на основе анализа 500+ внедрений и 2000+ контрактов Finval.
+          Рассчитайте ROI, сравните станки и примите обоснованное решение.
         </p>
-        <div class="actions" style="margin-top: 16px;">
-          <a class="button" href="roi-calculator.html">Перейти к калькулятору</a>
-          <a class="button secondary" href="comparison.html">Сравнить оборудование</a>
+        <div class="hero-actions">
+          <a href="calculator.html" class="btn btn-primary">Рассчитать окупаемость</a>
+          <a href="comparison.html" class="btn btn-secondary">Сравнить оборудование</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Почему это важно</h2>
+          <p>Ошибка в выборе станка может стоить 30-50% бюджета и 3-6 месяцев простоев</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Скорость запуска</h3>
+            <p>Правильный расчет пусконаладки ускорит ввод в эксплуатацию на 8-10 недель</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>Точность и качество</h3>
+            <p>Выбор класса жесткости шпинделя снизит брак на 15-20%</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💰</div>
+            <h3>Оптимизация бюджета</h3>
+            <p>Избегайте переплаты за неиспользуемые функции — экономьте до 30-50%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Calculator -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Быстрый расчет ROI</h2>
+          <p>Введите параметры — результаты обновятся мгновенно</p>
+        </div>
+        <div class="calculator" data-calculator>
+          <div class="grid grid-2">
+            <div class="calc-section">
+              <h4>Инвестиция</h4>
+              <div class="calc-row">
+                <label for="equipmentCost">Стоимость станка, млн ₽</label>
+                <input id="equipmentCost" type="number" value="50" min="0" step="0.1" />
+              </div>
+              <div class="calc-row">
+                <label for="commissioningPercent">Пусконаладка, %</label>
+                <input id="commissioningPercent" type="number" value="25" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label>Итого инвестиция</label>
+                <div class="calc-output" id="investmentTotal">—</div>
+              </div>
+            </div>
+
+            <div class="calc-section">
+              <h4>Производство</h4>
+              <div class="calc-row">
+                <label for="workDays">Рабочих дней в году</label>
+                <input id="workDays" type="number" value="250" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label for="shiftsPerDay">Смен в день</label>
+                <input id="shiftsPerDay" type="number" value="2" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label for="utilizationPercent">Загрузка, %</label>
+                <input id="utilizationPercent" type="number" value="85" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label>Эффективных часов/год</label>
+                <div class="calc-output" id="effectiveHours">—</div>
+              </div>
+            </div>
+
+            <div class="calc-section">
+              <h4>Затраты</h4>
+              <div class="calc-row">
+                <label for="operatorSalary">Зарплата оператора, ₽/мес</label>
+                <input id="operatorSalary" type="number" value="120000" min="0" step="1000" />
+              </div>
+              <div class="calc-row">
+                <label for="toolCost">Инструмент, ₽/час</label>
+                <input id="toolCost" type="number" value="1000" min="0" step="10" />
+              </div>
+              <div class="calc-row">
+                <label>Себестоимость часа</label>
+                <div class="calc-output" id="totalCostHour">—</div>
+              </div>
+            </div>
+
+            <div class="calc-section">
+              <h4>Выручка</h4>
+              <div class="calc-row">
+                <label for="partPrice">Цена детали, ₽</label>
+                <input id="partPrice" type="number" value="15000" min="0" step="100" />
+              </div>
+              <div class="calc-row">
+                <label for="partsPerHour">Деталей в час</label>
+                <input id="partsPerHour" type="number" value="1" min="0" step="0.1" />
+              </div>
+              <div class="calc-row">
+                <label>Выручка в год</label>
+                <div class="calc-output" id="revenueYear">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-result">
+            <div class="kpi-card">
+              <div class="value" id="profitYear">—</div>
+              <div class="label">Прибыль в год</div>
+            </div>
+            <div class="kpi-card">
+              <div class="value" id="paybackMonths">—</div>
+              <div class="label">Срок окупаемости</div>
+            </div>
+            <div class="kpi-card">
+              <div class="value" id="roiYear">—</div>
+              <div class="label">ROI в год</div>
+            </div>
+          </div>
+
+          <div class="text-center mt-xl">
+            <a href="calculator.html" class="btn btn-primary">Открыть полный калькулятор</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Critical Errors -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>5 критических ошибок</h2>
+          <p>Избегайте этих типичных проблем при выборе оборудования</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Ошибка 1. Неверный тип направляющих</h3>
+            <p>Скольжение для мягких материалов, качение для алюминия, усиленные для титана. Неправильный выбор — +50-150 тыс ₽ на инструмент.</p>
+          </div>
+          <div class="card">
+            <h3>Ошибка 2. Пусконаладка не в бюджете</h3>
+            <p>Скрытые затраты составляют 15-25% стоимости станка. FAU-80 требует 93 кВА и 4-8 недель наладки.</p>
+          </div>
+          <div class="card">
+            <h3>Ошибка 3. Инструмент и оснастка</h3>
+            <p>Непрогнозируемый расход инструмента приводит к простоям. Типичные затраты: 8-18% от оборота.</p>
+          </div>
+          <div class="card">
+            <h3>Ошибка 4. Неподходящий тип станка</h3>
+            <p>Для мелкосерийного — FVC, для массового — FF-38AS, для высокоточного — FAR-600B.</p>
+          </div>
+          <div class="card">
+            <h3>Ошибка 5. Нет плана ТО</h3>
+            <p>Каждые 500ч — масло в шпиндель, каждые 2000ч — калибровка осей. Без плана — потери точности.</p>
+          </div>
+          <div class="card">
+            <h3>Как избежать ошибок</h3>
+            <p>Включайте резерв 25%, согласуйте класс точности, обеспечьте сервисное обслуживание.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+      <div class="container">
+        <div class="card text-center" style="padding: 48px;">
+          <h2>Готовы начать?</h2>
+          <p style="max-width: 500px; margin: 16px auto 24px;">
+            Используйте наши инструменты для принятия обоснованного решения.
+            Получите консультацию инженера Finval.
+          </p>
+          <div class="hero-actions" style="justify-content: center;">
+            <a href="calculator.html" class="btn btn-primary">Рассчитать ROI</a>
+            <a href="contacts.html" class="btn btn-secondary">Получить консультацию</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="container">
-      Гайд-навигатор подготовлен Finval. Версия 1.0, январь 2026. Бесплатный материал для квалифицированных клиентов.
+      <p>Гид подготовлен Finval. Версия 2.0, 2026.</p>
     </div>
   </footer>
 

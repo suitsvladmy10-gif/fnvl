@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ROI-калькулятор окупаемости CNC-оборудования. Рассчитайте срок возврата инвестиций, прибыль и рентабельность с учетом всех затрат." />
+  <title>ROI-калькулятор — Finval 2026</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <span class="hero-tag">ROI-калькулятор</span>
+        <h1>Рассчитайте <span class="highlight">окупаемость</span> оборудования</h1>
+        <p class="hero-subtitle">
+          Интерактивный расчет поможет спланировать бюджет, оценить прибыль
+          и принять обоснованное решение о покупке станка.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="emailResults">Отправить расчет на email</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculator -->
+    <section class="section">
+      <div class="container">
+        <div class="calculator" data-calculator>
+          <div class="grid grid-2">
+            <!-- Инвестиции -->
+            <div class="calc-section">
+              <h4>1. Инвестиции</h4>
+              <div class="calc-row">
+                <label for="equipmentCost">Стоимость оборудования, млн ₽</label>
+                <input id="equipmentCost" type="number" value="50" min="0" step="0.1" />
+              </div>
+              <div class="calc-row">
+                <label for="commissioningPercent">Пусконаладка, %</label>
+                <input id="commissioningPercent" type="number" value="25" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label>Итого инвестиция</label>
+                <div class="calc-output" id="investmentTotal">—</div>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px;">
+                Рекомендованный резерв: 25% от стоимости оборудования
+              </p>
+            </div>
+
+            <!-- Производство -->
+            <div class="calc-section">
+              <h4>2. Производство</h4>
+              <div class="calc-row">
+                <label for="workDays">Рабочих дней в году</label>
+                <input id="workDays" type="number" value="250" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label for="shiftsPerDay">Смен в день</label>
+                <input id="shiftsPerDay" type="number" value="2" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label for="hoursPerShift">Часов в смене</label>
+                <input id="hoursPerShift" type="number" value="8" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label for="utilizationPercent">Коэффициент использования, %</label>
+                <input id="utilizationPercent" type="number" value="85" min="0" step="1" />
+              </div>
+              <div class="calc-row">
+                <label>Эффективные часы/год</label>
+                <div class="calc-output" id="effectiveHours">—</div>
+              </div>
+            </div>
+
+            <!-- Затраты -->
+            <div class="calc-section">
+              <h4>3. Затраты на час</h4>
+              <div class="calc-row">
+                <label for="operatorSalary">Зарплата оператора, ₽/мес</label>
+                <input id="operatorSalary" type="number" value="120000" min="0" step="1000" />
+              </div>
+              <div class="calc-row">
+                <label for="energyCost">Энергозатраты, ₽/час</label>
+                <input id="energyCost" type="number" value="600" min="0" step="10" />
+              </div>
+              <div class="calc-row">
+                <label for="toolCost">Инструмент и оснастка, ₽/час</label>
+                <input id="toolCost" type="number" value="1000" min="0" step="10" />
+              </div>
+              <div class="calc-row">
+                <label for="servicePercent">Service-контракт, % от инвестиций</label>
+                <input id="servicePercent" type="number" value="4" min="0" step="0.1" />
+              </div>
+              <div class="calc-row">
+                <label>Итого затраты/час</label>
+                <div class="calc-output" id="totalCostHour">—</div>
+              </div>
+            </div>
+
+            <!-- Выручка -->
+            <div class="calc-section">
+              <h4>4. Выручка</h4>
+              <div class="calc-row">
+                <label for="partPrice">Цена готовой детали, ₽</label>
+                <input id="partPrice" type="number" value="15000" min="0" step="100" />
+              </div>
+              <div class="calc-row">
+                <label for="partsPerHour">Деталей в час, шт</label>
+                <input id="partsPerHour" type="number" value="1" min="0" step="0.1" />
+              </div>
+              <div class="calc-row">
+                <label>Выручка на час</label>
+                <div class="calc-output" id="revenueHour">—</div>
+              </div>
+              <div class="calc-row">
+                <label>Выручка в год</label>
+                <div class="calc-output" id="revenueYear">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Результаты -->
+          <div class="calc-section" style="margin-top: 24px;">
+            <h4>5. Результаты</h4>
+            <div class="calc-result">
+              <div class="kpi-card">
+                <div class="value" id="profitYear">—</div>
+                <div class="label">Прибыль в год, млн ₽</div>
+              </div>
+              <div class="kpi-card">
+                <div class="value" id="paybackMonths">—</div>
+                <div class="label">Срок окупаемости</div>
+              </div>
+              <div class="kpi-card">
+                <div class="value" id="roiYear">—</div>
+                <div class="label">ROI в год, %</div>
+              </div>
+              <div class="kpi-card">
+                <div class="value" id="roi3Year">—</div>
+                <div class="label">ROI за 3 года, %</div>
+              </div>
+            </div>
+            <div class="notice" style="margin-top: 24px; padding: 16px; background: var(--bg-tertiary); border-radius: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+              <strong style="color: var(--gold);">Формулы соответствуют Excel-таблице из гида Finval.</strong>
+              Если прибыль отрицательная — пересмотрите загрузку, цену детали или инвестиции.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Что влияет на ROI -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Что влияет на окупаемость</h2>
+          <p>Ключевые факторы, которые определяют ROI вашего оборудования</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>Загрузка станка</h3>
+            <p>Коэффициент использования напрямую влияет на выручку. При загрузке ниже 60% окупаемость значительно увеличивается.</p>
+          </div>
+          <div class="card">
+            <h3>Цена детали</h3>
+            <p>Чем выше добавленная стоимость обработки, тем быстрее окупается станок. Премиальные детали — быстрая окупаемость.</p>
+          </div>
+          <div class="card">
+            <h3>Время цикла</h3>
+            <p>Оптимизация режимов резания и сокращение вспомогательного времени напрямую влияют на количество деталей в час.</p>
+          </div>
+          <div class="card">
+            <h3>Пусконаладка</h3>
+            <p>Неучтенные затраты на монтаж, калибровку и обучение могут составить 15-25% от стоимости станка.</p>
+          </div>
+          <div class="card">
+            <h3>Инструмент</h3>
+            <p>Расход инструмента зависит от материала и объема. Для титана — до 18% от оборота, для алюминия — 8-12%.</p>
+          </div>
+          <div class="card">
+            <h3>Простои</h3>
+            <p>Планируйте 3-8% времени на наладки, ожидание запчастей и ремонты. Это влияет на эффективную загрузку.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="card text-center" style="padding: 48px;">
+          <h2>Нужна помощь с расчетом?</h2>
+          <p style="max-width: 500px; margin: 16px auto 24px;">
+            Наши инженеры помогут рассчитать окупаемость для вашего конкретного случая
+            с учетом всех особенностей производства.
+          </p>
+          <div class="hero-actions" style="justify-content: center;">
+            <a href="contacts.html" class="btn btn-primary">Получить консультацию</a>
+            <a href="comparison.html" class="btn btn-secondary">Сравнить станки</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Расчет ориентировочный. Для точных цифр запросите коммерческое предложение.</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

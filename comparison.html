@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Сравнение металлообрабатывающего оборудования Finval: фрезерные центры FVC, FVA, FAR, FAU, токарные станки и автоматы. Фильтры по объему производства, материалам, точности и бюджету." />
+  <meta name="description" content="Сравнение металлообрабатывающего оборудования Finval: фрезерные центры FVC, FVA, FAR, FAU, токарные станки. Фильтры по типу, бюджету и точности." />
   <title>Сравнение оборудования — Finval 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -15,349 +12,266 @@
   </header>
 
   <main>
+    <!-- Hero -->
     <section class="hero">
-      <div class="tag">Блок 3</div>
-      <h1>Простой подбор оборудования по программе поставок Finval 2026</h1>
-      <p>
-        Подбор основан на линейке оборудования Finval 2026. Выберите тип станка, мощность
-        и скорость шпинделя — система предложит наиболее подходящую серию.
-      </p>
-      <div class="hero-actions">
-        <a class="button" href="decision.html">Перейти к алгоритму выбора</a>
-        <a class="button secondary" href="contacts.html">Запросить консультацию</a>
-      </div>
-    </section>
-
-    <section class="section container" data-selector>
-      <h2 class="section-title">Простой подбор</h2>
-      <p class="section-subtitle">
-        Укажите тип оборудования, ориентировочную мощность и скорость обработки. Система предложит
-        подходящую серию из программы поставок Finval 2026.
-      </p>
-      <div class="grid two" style="margin-top: 24px;">
-        <div class="card">
-          <div class="input-row">
-            <label for="machineType">Тип оборудования</label>
-            <select id="machineType">
-              <option value="any">Любой тип</option>
-              <option value="vertical">Вертикально-фрезерный центр</option>
-              <option value="five-axis">5-осевой фрезерный центр</option>
-              <option value="turning">Токарный центр</option>
-              <option value="swiss">Автомат продольного точения</option>
-              <option value="portal">Портальный центр</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="machinePower">Мощность шпинделя, кВт</label>
-            <input id="machinePower" type="number" value="15" min="0" step="0.5" />
-          </div>
-          <div class="input-row">
-            <label for="machineSpeed">Скорость шпинделя, об/мин</label>
-            <input id="machineSpeed" type="number" value="12000" min="0" step="500" />
-          </div>
-          <p class="small">Параметры можно скорректировать под ваш техпроцесс.</p>
-        </div>
-        <div class="card">
-          <h3>Рекомендация</h3>
-          <p id="selectorResult" class="output">—</p>
-          <p id="selectorAlternatives" class="small"></p>
-          <div class="notice" style="margin-top: 16px;">
-            Подбор ориентировочный. Для точного выбора учтите размер детали, требования к точности
-            и специфику оснастки.
-          </div>
+      <div class="container">
+        <span class="hero-tag">Сравнение</span>
+        <h1>Найдите <span class="highlight">идеальный станок</span> для задач</h1>
+        <p class="hero-subtitle">
+          Сравните технические характеристики, уточните требования и выберите
+          оптимальное решение из линейки Finval 2026.
+        </p>
+        <div class="hero-actions">
+          <a href="calculator.html" class="btn btn-primary">Рассчитать ROI</a>
+          <a href="catalog.html" class="btn btn-secondary">Перейти в каталог</a>
         </div>
       </div>
     </section>
 
-    <section class="section container">
-      <h2 class="section-title">Сценарии сравнения</h2>
-      <div class="grid two" style="margin-top: 24px;">
-        <div class="card">
-          <h3>Стартовый универсальный</h3>
-          <p>FVC-1000 vs FVC-1055 vs FVC-1100</p>
-          <p class="small">Для смешанной номенклатуры и среднего бюджета.</p>
+    <!-- Quick Selector -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Быстрый подбор</h2>
+          <p>Укажите параметры — система предложит подходящую модель</p>
         </div>
-        <div class="card">
-          <h3>Для мягких материалов</h3>
-          <p>FVA-850 vs FVA-950 vs FVA-950B</p>
-          <p class="small">Оптимально для алюминия и сплавов с низкой твердостью.</p>
-        </div>
-        <div class="card">
-          <h3>Высокоточный</h3>
-          <p>FAR-300B vs FAR-600B vs FAU-60</p>
-          <p class="small">Повышенная точность и сложная геометрия.</p>
-        </div>
-        <div class="card">
-          <h3>Массовое производство</h3>
-          <p>FF-32AS vs FF-38AS vs FF-38BS</p>
-          <p class="small">Высокая скорость и стабильный цикл.</p>
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="calc-section">
+              <h4>Параметры</h4>
+              <div class="calc-row">
+                <label for="machineType">Тип оборудования</label>
+                <select id="machineType">
+                  <option value="any">Любой тип</option>
+                  <option value="vertical">Вертикально-фрезерный центр</option>
+                  <option value="five-axis">5-осевой фрезерный центр</option>
+                  <option value="turning">Токарный центр</option>
+                  <option value="swiss">Автомат продольного точения</option>
+                  <option value="portal">Портальный центр</option>
+                </select>
+              </div>
+              <div class="calc-row">
+                <label for="machinePower">Мощность шпинделя, кВт</label>
+                <input id="machinePower" type="number" value="15" min="0" step="0.5" />
+              </div>
+              <div class="calc-row">
+                <label for="machineSpeed">Скорость шпинделя, об/мин</label>
+                <input id="machineSpeed" type="number" value="12000" min="0" step="500" />
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4 style="color: var(--gold); margin-bottom: 16px; font-family: var(--font-heading); letter-spacing: 0.05em;">Рекомендация</h4>
+            <p id="selectorResult" style="font-size: 1.2rem; color: var(--text-primary); font-weight: 600;">—</p>
+            <p id="selectorAlternatives" style="font-size: 0.9rem; margin-top: 8px;"></p>
+            <div style="margin-top: 24px; padding: 16px; background: var(--bg-tertiary); border-radius: 8px; font-size: 0.85rem;">
+              Подбор ориентировочный. Для точного выбора учтите размер детали, требования к точности и специфику оснастки.
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section container" data-compare-filters>
-      <h2 class="section-title">Фильтры</h2>
-      <div class="grid two" style="margin-top: 24px;">
-        <div class="card">
-          <div class="input-row">
-            <label for="filterVolume">Объем производства</label>
-            <select id="filterVolume">
-              <option value="any">Любой</option>
-              <option value="small">Мелкосерийное</option>
-              <option value="medium">Среднесерийное</option>
-              <option value="large">Крупносерийное</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="filterMaterial">Материалы</label>
-            <select id="filterMaterial">
-              <option value="any">Любые</option>
-              <option value="steel">Сталь</option>
-              <option value="aluminum">Алюминий</option>
-              <option value="titanium">Titanium</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="filterAccuracy">Требования точности</label>
-            <select id="filterAccuracy">
-              <option value="any">Любые</option>
-              <option value="standard">Стандартные</option>
-              <option value="high">Высокие</option>
-              <option value="ultra">Сверхточные</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="filterBudget">Бюджет</label>
-            <select id="filterBudget">
-              <option value="any">Любой</option>
-              <option value="low">До 15M ₽</option>
-              <option value="mid">15–80M ₽</option>
-              <option value="high">80M+ ₽</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="filterPriority">Приоритет</label>
-            <select id="filterPriority">
-              <option value="balanced">Сбалансированно</option>
-              <option value="accuracy">Точность</option>
-              <option value="speed">Скорость цикла</option>
-              <option value="budget">Бюджет</option>
-            </select>
+    <!-- Filters -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Таблица сравнения</h2>
+          <p>Фильтруйте по параметрам и сравнивайте модели</p>
+        </div>
+
+        <div class="card" data-compare-filters>
+          <div class="grid grid-2" style="gap: 16px;">
+            <div class="calc-row">
+              <label for="filterVolume">Объем производства</label>
+              <select id="filterVolume">
+                <option value="any">Любой</option>
+                <option value="small">Мелкосерийное</option>
+                <option value="medium">Среднесерийное</option>
+                <option value="large">Крупносерийное</option>
+              </select>
+            </div>
+            <div class="calc-row">
+              <label for="filterMaterial">Материалы</label>
+              <select id="filterMaterial">
+                <option value="any">Любые</option>
+                <option value="steel">Сталь</option>
+                <option value="aluminum">Алюминий</option>
+                <option value="titanium">Титан</option>
+              </select>
+            </div>
+            <div class="calc-row">
+              <label for="filterAccuracy">Точность</label>
+              <select id="filterAccuracy">
+                <option value="any">Любая</option>
+                <option value="standard">Стандартная</option>
+                <option value="high">Высокая</option>
+                <option value="ultra">Сверхточная</option>
+              </select>
+            </div>
+            <div class="calc-row">
+              <label for="filterPriority">Приоритет</label>
+              <select id="filterPriority">
+                <option value="balanced">Сбалансированно</option>
+                <option value="accuracy">Точность</option>
+                <option value="speed">Скорость</option>
+                <option value="budget">Бюджет</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <h3>Как пользоваться</h3>
-          <p>Выберите фильтры и приоритет — таблица обновится автоматически.</p>
-          <p class="small">Приоритет влияет на сортировку: точность, скорость или бюджет.</p>
+
+        <div class="table-wrapper" style="margin-top: 24px;">
+          <table data-compare-table>
+            <thead>
+              <tr>
+                <th>Модель</th>
+                <th>Габариты</th>
+                <th>Мощность</th>
+                <th>Точность</th>
+                <th>Масса</th>
+                <th>Цена</th>
+                <th>Цикл</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-volume="medium" data-material="steel" data-accuracy="high" data-budget="low" data-price="12" data-accuracy-val="0.008" data-cycle="20">
+                <td><strong>FVC-1100</strong></td>
+                <td>2.7 × 2.4 м</td>
+                <td>15 кВт</td>
+                <td>±0.008</td>
+                <td>7 000 кг</td>
+                <td>~12M ₽</td>
+                <td>20 мин</td>
+              </tr>
+              <tr data-volume="medium" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="10" data-accuracy-val="0.01" data-cycle="22">
+                <td><strong>FVC-1000</strong></td>
+                <td>2.5 × 2.2 м</td>
+                <td>11 кВт</td>
+                <td>±0.010</td>
+                <td>6 200 кг</td>
+                <td>~10M ₽</td>
+                <td>22 мин</td>
+              </tr>
+              <tr data-volume="small" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="8" data-accuracy-val="0.012" data-cycle="25">
+                <td><strong>FVA-650</strong></td>
+                <td>2.2 × 2.0 м</td>
+                <td>7.5 кВт</td>
+                <td>±0.012</td>
+                <td>5 200 кг</td>
+                <td>~8M ₽</td>
+                <td>25 мин</td>
+              </tr>
+              <tr data-volume="small" data-material="titanium" data-accuracy="ultra" data-budget="mid" data-price="55" data-accuracy-val="0.006" data-cycle="18">
+                <td><strong>FAR-300B</strong></td>
+                <td>3.2 × 2.6 м</td>
+                <td>19.5 кВт</td>
+                <td>±0.006</td>
+                <td>8 500 кг</td>
+                <td>~55M ₽</td>
+                <td>18 мин</td>
+              </tr>
+              <tr data-volume="medium" data-material="titanium" data-accuracy="ultra" data-budget="mid" data-price="70" data-accuracy-val="0.006" data-cycle="16">
+                <td><strong>FAR-600B</strong></td>
+                <td>3.8 × 3.0 м</td>
+                <td>18.5 кВт</td>
+                <td>±0.006</td>
+                <td>10 200 кг</td>
+                <td>~70M ₽</td>
+                <td>16 мин</td>
+              </tr>
+              <tr data-volume="medium" data-material="steel" data-accuracy="high" data-budget="mid" data-price="50" data-accuracy-val="0.007" data-cycle="15">
+                <td><strong>FAU-60</strong></td>
+                <td>4.2 × 3.4 м</td>
+                <td>18.5 кВт</td>
+                <td>±0.007</td>
+                <td>12 500 кг</td>
+                <td>~50M ₽</td>
+                <td>15 мин</td>
+              </tr>
+              <tr data-volume="large" data-material="steel" data-accuracy="standard" data-budget="mid" data-price="65" data-accuracy-val="0.05" data-cycle="4">
+                <td><strong>FF-32AS</strong></td>
+                <td>Линейное</td>
+                <td>15 кВт</td>
+                <td>±0.05</td>
+                <td>13 000 кг</td>
+                <td>~65M ₽</td>
+                <td>4 мин</td>
+              </tr>
+              <tr data-volume="large" data-material="steel" data-accuracy="standard" data-budget="high" data-price="80" data-accuracy-val="0.05" data-cycle="3">
+                <td><strong>FF-38AS</strong></td>
+                <td>Линейное</td>
+                <td>18 кВт</td>
+                <td>±0.05</td>
+                <td>15 000 кг</td>
+                <td>~80M ₽</td>
+                <td>3 мин</td>
+              </tr>
+              <tr data-volume="medium" data-material="titanium" data-accuracy="ultra" data-budget="high" data-price="60" data-accuracy-val="0.007" data-cycle="15">
+                <td><strong>FAU-80</strong></td>
+                <td>5.0 × 4.0 м</td>
+                <td>28–36 кВт</td>
+                <td>±0.007</td>
+                <td>17 000 кг</td>
+                <td>~60M ₽</td>
+                <td>15 мин</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 12px;">
+          * Данные ориентировочные. Точные параметры — в коммерческом предложении.
+        </p>
+      </div>
+    </section>
+
+    <!-- Series Overview -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Серии Finval 2026</h2>
+          <p>Обзор линейки оборудования по категориям</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>FVA / FVC</h3>
+            <p style="margin-bottom: 12px; color: var(--text-secondary);">Вертикально-фрезерные центры</p>
+            <p>7,5–15 кВт, 8000–18000 об/мин. Универсальные станки для мелкосерийного производства.</p>
+          </div>
+          <div class="card">
+            <h3>FAR / FAU</h3>
+            <p style="margin-bottom: 12px; color: var(--text-secondary);">5-осевые центры</p>
+            <p>18,5–36 кВт, 18000–24000 об/мин. Высокая точность для сложной геометрии.</p>
+          </div>
+          <div class="card">
+            <h3>FF / FE</h3>
+            <p style="margin-bottom: 12px; color: var(--text-secondary);">Токарные автоматы</p>
+            <p>15–20 кВт, до 6000 об/мин. Массовое производство валов и тел вращения.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section container" data-compare-table>
-      <h2 class="section-title">Расширенная таблица параметров</h2>
-      <table class="table" style="margin-top: 24px;">
-        <thead>
-          <tr>
-            <th>Модель</th>
-            <th>Габариты, м</th>
-            <th>Мощность</th>
-            <th>Точность</th>
-            <th>Масса</th>
-            <th>Ориентировочная цена</th>
-            <th>Цикл обработки</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-volume="medium" data-material="steel" data-accuracy="high" data-budget="low" data-price="12" data-accuracy-val="0.008" data-cycle="20">
-            <td>FVC-1100</td>
-            <td>2.7 × 2.4</td>
-            <td>15 кВт</td>
-            <td>±0.008</td>
-            <td>7 000 кг</td>
-            <td>~12M ₽</td>
-            <td>20 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="10" data-accuracy-val="0.01" data-cycle="22">
-            <td>FVC-1000</td>
-            <td>2.5 × 2.2</td>
-            <td>11 кВт</td>
-            <td>±0.010</td>
-            <td>6 200 кг</td>
-            <td>~10M ₽</td>
-            <td>22 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="11" data-accuracy-val="0.01" data-cycle="21">
-            <td>FVC-1055</td>
-            <td>2.6 × 2.3</td>
-            <td>11 кВт</td>
-            <td>±0.010</td>
-            <td>6 600 кг</td>
-            <td>~11M ₽</td>
-            <td>21 мин/деталь</td>
-          </tr>
-          <tr data-volume="small" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="8" data-accuracy-val="0.012" data-cycle="25">
-            <td>FVA-650</td>
-            <td>2.2 × 2.0</td>
-            <td>7.5 кВт</td>
-            <td>±0.012</td>
-            <td>5 200 кг</td>
-            <td>~8M ₽</td>
-            <td>25 мин/деталь</td>
-          </tr>
-          <tr data-volume="small" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="9" data-accuracy-val="0.012" data-cycle="24">
-            <td>FVA-850</td>
-            <td>2.4 × 2.1</td>
-            <td>11 кВт</td>
-            <td>±0.012</td>
-            <td>5 800 кг</td>
-            <td>~9M ₽</td>
-            <td>24 мин/деталь</td>
-          </tr>
-          <tr data-volume="small" data-material="aluminum" data-accuracy="standard" data-budget="low" data-price="9.5" data-accuracy-val="0.012" data-cycle="23">
-            <td>FVA-950</td>
-            <td>2.6 × 2.2</td>
-            <td>11 кВт</td>
-            <td>±0.012</td>
-            <td>6 100 кг</td>
-            <td>~9.5M ₽</td>
-            <td>23 мин/деталь</td>
-          </tr>
-          <tr data-volume="small" data-material="aluminum" data-accuracy="standard" data-budget="mid" data-price="13" data-accuracy-val="0.01" data-cycle="22">
-            <td>FVA-950B</td>
-            <td>2.7 × 2.3</td>
-            <td>11 кВт</td>
-            <td>±0.010</td>
-            <td>6 500 кг</td>
-            <td>~13M ₽</td>
-            <td>22 мин/деталь</td>
-          </tr>
-          <tr data-volume="small" data-material="titanium" data-accuracy="ultra" data-budget="mid" data-price="55" data-accuracy-val="0.006" data-cycle="18">
-            <td>FAR-300B</td>
-            <td>3.2 × 2.6</td>
-            <td>19.5 кВт</td>
-            <td>±0.006</td>
-            <td>8 500 кг</td>
-            <td>~55M ₽</td>
-            <td>18 мин/деталь</td>
-          </tr>
-          <tr data-volume="small" data-material="titanium" data-accuracy="ultra" data-budget="mid" data-price="60" data-accuracy-val="0.006" data-cycle="17">
-            <td>FAR-300AU</td>
-            <td>3.4 × 2.7</td>
-            <td>18.5 кВт</td>
-            <td>±0.006</td>
-            <td>9 000 кг</td>
-            <td>~60M ₽</td>
-            <td>17 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="titanium" data-accuracy="ultra" data-budget="mid" data-price="70" data-accuracy-val="0.006" data-cycle="16">
-            <td>FAR-600B</td>
-            <td>3.8 × 3.0</td>
-            <td>18.5 кВт</td>
-            <td>±0.006</td>
-            <td>10 200 кг</td>
-            <td>~70M ₽</td>
-            <td>16 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="steel" data-accuracy="high" data-budget="mid" data-price="50" data-accuracy-val="0.007" data-cycle="15">
-            <td>FAU-60</td>
-            <td>4.2 × 3.4</td>
-            <td>18.5 кВт</td>
-            <td>±0.007</td>
-            <td>12 500 кг</td>
-            <td>~50M ₽</td>
-            <td>15 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="steel" data-accuracy="high" data-budget="mid" data-price="15" data-accuracy-val="0.008" data-cycle="18">
-            <td>FVC-1200</td>
-            <td>2.9 × 2.6</td>
-            <td>15 кВт</td>
-            <td>±0.008</td>
-            <td>7 800 кг</td>
-            <td>~15M ₽</td>
-            <td>18 мин/деталь</td>
-          </tr>
-          <tr data-volume="large" data-material="steel" data-accuracy="standard" data-budget="mid" data-price="65" data-accuracy-val="0.05" data-cycle="4">
-            <td>FF-32AS</td>
-            <td>Линейное</td>
-            <td>15 кВт</td>
-            <td>±0.05</td>
-            <td>13 000 кг</td>
-            <td>~65M ₽</td>
-            <td>4 мин/деталь</td>
-          </tr>
-          <tr data-volume="large" data-material="steel" data-accuracy="standard" data-budget="high" data-price="80" data-accuracy-val="0.05" data-cycle="3">
-            <td>FF-38AS</td>
-            <td>Линейное</td>
-            <td>18 кВт</td>
-            <td>±0.05</td>
-            <td>15 000 кг</td>
-            <td>~80M ₽</td>
-            <td>3 мин/деталь</td>
-          </tr>
-          <tr data-volume="large" data-material="steel" data-accuracy="standard" data-budget="high" data-price="85" data-accuracy-val="0.05" data-cycle="3">
-            <td>FF-38BS</td>
-            <td>Линейное</td>
-            <td>18 кВт</td>
-            <td>±0.05</td>
-            <td>16 000 кг</td>
-            <td>~85M ₽</td>
-            <td>3 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="steel" data-accuracy="standard" data-budget="mid" data-price="28" data-accuracy-val="0.01" data-cycle="19">
-            <td>FLD-620</td>
-            <td>3.0 × 2.6</td>
-            <td>11 кВт</td>
-            <td>±0.010</td>
-            <td>8 500 кг</td>
-            <td>~28M ₽</td>
-            <td>19 мин/деталь</td>
-          </tr>
-          <tr data-volume="large" data-material="steel" data-accuracy="standard" data-budget="high" data-price="95" data-accuracy-val="0.05" data-cycle="3.5">
-            <td>FE-32</td>
-            <td>Линейное</td>
-            <td>20 кВт</td>
-            <td>±0.05</td>
-            <td>14 500 кг</td>
-            <td>~95M ₽</td>
-            <td>3.5 мин/деталь</td>
-          </tr>
-          <tr data-volume="medium" data-material="titanium" data-accuracy="ultra" data-budget="high" data-price="60" data-accuracy-val="0.007" data-cycle="15">
-            <td>FAU-80</td>
-            <td>5.0 × 4.0</td>
-            <td>28–36 кВт</td>
-            <td>±0.007</td>
-            <td>17 000 кг</td>
-            <td>~60M ₽</td>
-            <td>15 мин/деталь</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="small" style="margin-top: 12px;">Данные ориентировочные и требуют подтверждения в ТКП.</p>
-    </section>
-
-    <section class="section container">
-      <h2 class="section-title">Ориентиры по сериям Finval 2026</h2>
-      <div class="grid three" style="margin-top: 24px;">
-        <div class="card">
-          <h3>FVA / FVC</h3>
-          <p>Вертикально-фрезерные центры: 7,5–15 кВт, 8000–10 000 об/мин, опции до 18 000 об/мин.</p>
-        </div>
-        <div class="card">
-          <h3>FAR-300/600</h3>
-          <p>5-осевые центры: 18,5–19,5 кВт, 18 000–24 000 об/мин для сложных деталей.</p>
-        </div>
-        <div class="card">
-          <h3>FS / FF</h3>
-          <p>Токарные центры и автоматы: 5,5–7,5 кВт, скорость шпинделя до 6000 об/мин.</p>
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="card text-center" style="padding: 48px;">
+          <h2>Нужна консультация?</h2>
+          <p style="max-width: 500px; margin: 16px auto 24px;">
+            Наши инженеры помогут выбрать оптимальное оборудование под ваши задачи.
+          </p>
+          <div class="hero-actions" style="justify-content: center;">
+            <a href="contacts.html" class="btn btn-primary">Связаться с нами</a>
+            <a href="calculator.html" class="btn btn-secondary">Рассчитать ROI</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="container">
-      Финальная конфигурация зависит от номенклатуры, требований точности и бюджета. Для подбора решения
-      используйте алгоритм выбора или запросите консультацию.
+      <p>Финальная конфигурация зависит от номенклатуры и требований точности.</p>
     </div>
   </footer>
 
