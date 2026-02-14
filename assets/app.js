@@ -1,3 +1,7 @@
+// ========================================
+// FNVL - Finval 2026 Website Scripts
+// ========================================
+
 const formatNumber = (value, options = {}) => {
   if (!Number.isFinite(value)) return "—";
   const formatter = new Intl.NumberFormat("ru-RU", {
@@ -23,10 +27,12 @@ const setText = (id, value) => {
   el.textContent = value;
 };
 
+// ========================================
+// ROI Calculator
+// ========================================
+
 const calculateRoi = () => {
-  // Нормативный срок службы оборудования в часах для расчета амортизации
   const ASSET_LIFETIME_HOURS = 34000;
-  // Среднее количество рабочих часов в месяце для расчета стоимости часа оператора
   const AVG_MONTHLY_WORK_HOURS = 170;
 
   const equipmentCost = getValue("equipmentCost");
@@ -85,24 +91,10 @@ const calculateRoi = () => {
   setText("roi3Year", roi3Year ? `${formatRubles(roi3Year, 1)}%` : "—");
 
   return {
-    investmentM,
-    availableHours,
-    effectiveHours,
-    depreciation,
-    laborCost,
-    energyCost,
-    toolCost,
-    maintenanceCost,
-    totalCostHour,
-    partPrice,
-    partsPerHour,
-    revenueHour,
-    revenueYear,
-    costsYear,
-    profitYear,
-    paybackMonths,
-    roiYear,
-    roi3Year,
+    investmentM, availableHours, effectiveHours, depreciation,
+    laborCost, energyCost, toolCost, maintenanceCost, totalCostHour,
+    partPrice, partsPerHour, revenueHour, revenueYear, costsYear,
+    profitYear, paybackMonths, roiYear, roi3Year,
   };
 };
 
@@ -136,255 +128,196 @@ const setupCalculator = () => {
   }
 };
 
+// ========================================
+// Contact Form
+// ========================================
+
 const setupContactForm = () => {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const name = document.getElementById("contactName").value.trim();
-    const email = document.getElementById("contactEmail").value.trim();
-    const company = document.getElementById("contactCompany").value.trim();
-    const message = document.getElementById("contactMessage").value.trim();
+    const name = document.getElementById("contactName")?.value.trim() || "";
+    const email = document.getElementById("contactEmail")?.value.trim() || "";
+    const company = document.getElementById("contactCompany")?.value.trim() || "";
+    const phone = document.getElementById("contactPhone")?.value.trim() || "";
+    const message = document.getElementById("contactMessage")?.value.trim() || "";
     const subject = encodeURIComponent("Запрос консультации Finval 2026");
     const body = encodeURIComponent(
-      `Имя: ${name}\nКомпания: ${company}\nEmail: ${email}\n\nСообщение:\n${message}`
+      `Имя: ${name}\nКомпания: ${company}\nEmail: ${email}\nТелефон: ${phone}\n\nСообщение:\n${message}`
     );
     window.location.href = `mailto:sales@finval.ru?subject=${subject}&body=${body}`;
   });
 };
 
+// ========================================
+// Section Animations
+// ========================================
+
 const setupReveal = () => {
   const sections = document.querySelectorAll(".section");
   sections.forEach((section, index) => {
-    // Set initial state via class
-    section.classList.add("section--hidden");
-    // Set staggered delay. This is an acceptable use of inline style as it's dynamic.
-    section.style.transitionDelay = `${index * 0.1}s`;
-
-    // Trigger the animation after the initial styles have been applied
-    requestAnimationFrame(() => {
-      section.classList.remove("section--hidden");
-    });
+    section.style.animationDelay = `${index * 0.15}s`;
   });
 };
 
-const setupSelector = () => {
-  const root = document.querySelector("[data-selector]");
-  if (!root) return;
+// ========================================
+// Podbor (Machine Selection)
+// ========================================
 
-  const typeSelect = document.getElementById("machineType");
-  const powerInput = document.getElementById("machinePower");
-  const speedInput = document.getElementById("machineSpeed");
-  const resultEl = document.getElementById("selectorResult");
-  const altEl = document.getElementById("selectorAlternatives");
-
-  const scoreMachine = (machine, power, rpm) => {
-    let score = 0;
-    // Lower score is better - we want closest match
-    if (power > 0 && machine.power > 0) score += Math.abs(power - machine.power) / power;
-    if (rpm > 0 && machine.rpm > 0) score += Math.abs(rpm - machine.rpm) / rpm;
-    return score;
-  };
-
-  const update = (catalog) => {
-    if (!catalog) return;
-    const type = typeSelect.value;
-    const power = parseFloat(powerInput.value) || 0;
-    const rpm = parseFloat(speedInput.value) || 0;
-    let list = catalog;
-    if (type !== "any") {
-      list = list.filter((item) => item.type === type);
-    }
-    if (!list.length) {
-      resultEl.textContent = "Под этот тип оборудования модели не найдены.";
-      altEl.textContent = "";
-      return;
-    }
-    const ranked = list
-      .map((item) => ({ item, score: scoreMachine(item, power, rpm) }))
-      .sort((a, b) => a.score - b.score);
-    const best = ranked[0].item;
-    resultEl.textContent = `${best.name} — ${best.power} кВт, ${best.rpm} об/мин. ${best.note}`;
-
-    const alt = ranked.slice(1, 3).map((row) => row.item);
-    altEl.textContent = alt.length
-      ? `Альтернативы: ${alt.map((item) => item.name).join(", ")}.`
-      : "";
-  };
-
-  fetch("./catalog.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((catalog) => {
-      [typeSelect, powerInput, speedInput].forEach((el) =>
-        el.addEventListener("input", () => update(catalog))
-      );
-      update(catalog);
-    })
-    .catch((error) => {
-      console.error("Could not load catalog:", error);
-      resultEl.textContent = "Не удалось загрузить каталог оборудования.";
-    });
+const parsePodborValue = (value) => {
+  if (typeof value === 'number') return value;
+  if (typeof value !== 'string' || value.trim() === '' || value.trim() === '—') return 0;
+  const cleanedString = value.split('/')[0].replace(/[^0-9.]/g, '').trim();
+  const number = parseFloat(cleanedString);
+  return Number.isFinite(number) ? number : 0;
 };
 
-const setupDecisionSurvey = () => {
-  const root = document.querySelector("[data-decision]");
-  if (!root) return;
+const loadCatalogTable = async () => {
+  const tbody = document.getElementById("catalogBody");
+  if (!tbody) return;
 
-  const volumeEl = document.getElementById("surveyVolume");
-  const typesEl = document.getElementById("surveyTypes");
-  const setupEl = document.getElementById("surveySetup");
-  const accuracyEl = document.getElementById("surveyAccuracy");
-  const budgetEl = document.getElementById("surveyBudget");
-  const resultEl = document.getElementById("surveyResult");
-  const nextEl = document.getElementById("surveyNext");
+  try {
+    const response = await fetch("podbor.json");
+    if (!response.ok) throw new Error("Failed to load catalog");
+    const rawData = await response.json();
 
-  const update = () => {
-    const volume = parseFloat(volumeEl.value) || 0;
-    const types = parseFloat(typesEl.value) || 0;
-    const setup = parseFloat(setupEl.value) || 4;
-    const accuracy = parseFloat(accuracyEl.value) || 0.015;
-    const budget = parseFloat(budgetEl.value) || 0;
+    const machines = rawData
+      .filter(item => item["Серия / Модель"] && item["Серия / Модель"].trim() !== "")
+      .map(item => ({
+        model: item["Серия / Модель"],
+        type: item["Назначение / Тип обработки"],
+        xyz: item["Перемещение X/Y/Z (мм)"] || "—",
+        power: parsePodborValue(item["Мощность шпинделя (кВт)"]),
+        rpm: parsePodborValue(item["Частота вращения (об/мин)"]),
+        load: parsePodborValue(item["Макс. нагрузка / Масса детали (кг)"]),
+      }));
 
-    let recommendation = "Специализированный станок";
-    let nextStep = "Подготовить ТЗ на деталь и уточнить требования к оснастке.";
-
-    if (volume > 500 || types > 8 || setup <= 0.5) {
-      recommendation = "Многозадачный центр или горизонтальный обрабатывающий центр";
-      nextStep = "Собрать перечень типовых деталей и запросить расчет производительности.";
-    } else if (volume >= 200 || types >= 4 || setup <= 2) {
-      recommendation = "Специализированный + рассмотреть многозадачный центр";
-      nextStep = "Сравнить экономику 2-х станков против одного центра.";
-    }
-
-    if (accuracy <= 0.005 && setup <= 2) {
-      recommendation = "Горизонтальный или усиленный многозадачный центр";
-      nextStep = "Проверить требования по точности и доступные системы контроля.";
-    }
-
-    if (budget >= 80) {
-      nextStep = "Сформировать два сценария: горизонтальный + многозадачный / несколько специализированных.";
-    } else if (budget >= 50) {
-      nextStep = "Сравнить бюджет на многозадачный центр и пару специализированных станков.";
-    }
-
-    resultEl.textContent = recommendation;
-    nextEl.textContent = `Следующий шаг: ${nextStep}`;
-  };
-
-  [volumeEl, typesEl, setupEl, accuracyEl, budgetEl].forEach((el) =>
-    el.addEventListener("input", update)
-  );
-  update();
+    tbody.innerHTML = machines.map(m => `
+      <tr>
+        <td><strong>${m.model}</strong></td>
+        <td>${m.type}</td>
+        <td>${m.xyz}</td>
+        <td>${m.power} кВт</td>
+        <td>${m.rpm.toLocaleString('ru-RU')}</td>
+        <td>${m.load} кг</td>
+      </tr>
+    `).join('');
+  } catch (error) {
+    console.error("Failed to load catalog:", error);
+    if (tbody) tbody.innerHTML = '<tr><td colspan="6">Не удалось загрузить каталог</td></tr>';
+  }
 };
 
-const setupComparisonFilters = () => {
-  const root = document.querySelector("[data-compare-filters]");
-  if (!root) return;
+const setupPodbor = () => {
+  const form = document.getElementById("podborForm");
+  if (!form) return;
 
-  const volumeEl = document.getElementById("filterVolume");
-  const materialEl = document.getElementById("filterMaterial");
-  const accuracyEl = document.getElementById("filterAccuracy");
-  const budgetEl = document.getElementById("filterBudget");
-  const priorityEl = document.getElementById("filterPriority");
-  const rows = document.querySelectorAll("[data-compare-table] tbody tr");
+  const resultEl = document.getElementById("podborResult");
 
-  const matches = (row, key, value) => {
-    if (value === "any") return true;
-    return row.getAttribute(`data-${key}`) === value;
-  };
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    resultEl.innerHTML = `<p style="color: var(--gold);">Подбираем модель...</p>`;
 
-  const getNumber = (row, key) => {
-    const raw = row.getAttribute(`data-${key}`);
-    const value = parseFloat(raw);
-    return Number.isFinite(value) ? value : 0;
-  };
+    try {
+      const response = await fetch("podbor.json");
+      if (!response.ok) throw new Error("Could not load machine data.");
+      const rawData = await response.json();
 
-  const normalize = (value, min, max) => {
-    if (max === min) return 0;
-    return (value - min) / (max - min);
-  };
+      const machines = rawData
+        .filter(item => item["Серия / Модель"] && item["Серия / Модель"].trim() !== "")
+        .map(item => ({
+          model: item["Серия / Модель"],
+          type: item["Назначение / Тип обработки"],
+          x: parsePodborValue(item["Перемещение X/Y/Z (мм)"]),
+          y: parsePodborValue(item["Перемещение X/Y/Z (мм)"]),
+          z: parsePodborValue(item["Перемещение X/Y/Z (мм)"]),
+          power: parsePodborValue(item["Мощность шпинделя (кВт)"]),
+          rpm: parsePodborValue(item["Частота вращения (об/мин)"]),
+          load: parsePodborValue(item["Макс. нагрузка / Масса детали (кг)"]),
+          xyz: item["Перемещение X/Y/Z (мм)"] || "—",
+        }));
 
-  const update = () => {
-    const volume = volumeEl.value;
-    const material = materialEl.value;
-    const accuracy = accuracyEl.value;
-    const budget = budgetEl.value;
-    const priority = priorityEl.value;
-    const filteredRows = [];
+      // Get user input
+      const userInput = {
+        x: getValue("podborX") || getValue("podborY") || 0,
+        y: getValue("podborY") || 0,
+        z: getValue("podborZ") || 0,
+        power: getValue("podborPower"),
+        rpm: getValue("podborRpm"),
+        load: getValue("podborLoad"),
+      };
 
-    rows.forEach((row) => {
-      const show =
-        matches(row, "volume", volume) &&
-        matches(row, "material", material) &&
-        matches(row, "accuracy", accuracy) &&
-        matches(row, "budget", budget);
-      row.style.display = show ? "" : "none";
-      if (show) {
-        filteredRows.push(row);
+      // Filter candidates: must meet minimum requirements
+      const candidates = machines.filter(m => {
+        const xOk = userInput.x > 0 ? m.x >= userInput.x : true;
+        const yOk = userInput.y > 0 ? m.y >= userInput.y : true;
+        const zOk = userInput.z > 0 ? m.z >= userInput.z : true;
+        const powerOk = userInput.power > 0 ? m.power >= userInput.power : true;
+        const rpmOk = userInput.rpm > 0 ? m.rpm >= userInput.rpm : true;
+        const loadOk = userInput.load > 0 ? m.load >= userInput.load : true;
+        return xOk && yOk && zOk && powerOk && rpmOk && loadOk;
+      });
+
+      if (candidates.length === 0) {
+        resultEl.innerHTML = `
+          <div class="card" style="border-color: var(--copper);">
+            <h3 style="color: var(--copper);">Модели не найдены</h3>
+            <p>Не найдено моделей, удовлетворяющих всем вашим критериям. Попробуйте смягчить требования.</p>
+          </div>`;
+        return;
       }
-    });
 
-    if (!filteredRows.length) return;
+      // Score candidates - lower is better
+      const scoredCandidates = candidates.map(m => {
+        let score = 0;
+        if (userInput.x > 0) score += (m.x - userInput.x) / userInput.x;
+        if (userInput.y > 0) score += (m.y - userInput.y) / userInput.y;
+        if (userInput.z > 0) score += (m.z - userInput.z) / userInput.z;
+        if (userInput.power > 0) score += (m.power - userInput.power) / userInput.power;
+        if (userInput.rpm > 0) score += (m.rpm - userInput.rpm) / userInput.rpm;
+        if (userInput.load > 0) score += (m.load - userInput.load) / userInput.load;
+        return { ...m, score };
+      });
 
-    const prices = filteredRows.map((row) => getNumber(row, "price"));
-    const accuracies = filteredRows.map((row) => getNumber(row, "accuracy-val"));
-    const cycles = filteredRows.map((row) => getNumber(row, "cycle"));
-    const minPrice = Math.min(...prices);
-    const maxPrice = Math.max(...prices);
-    const minAccuracy = Math.min(...accuracies);
-    const maxAccuracy = Math.max(...accuracies);
-    const minCycle = Math.min(...cycles);
-    const maxCycle = Math.max(...cycles);
+      scoredCandidates.sort((a, b) => a.score - b.score);
 
-    filteredRows.forEach((row) => {
-      const price = getNumber(row, "price");
-      const accuracyVal = getNumber(row, "accuracy-val");
-      const cycle = getNumber(row, "cycle");
-      const priceScore = 1 - normalize(price, minPrice, maxPrice);
-      const accuracyScore = 1 - normalize(accuracyVal, minAccuracy, maxAccuracy);
-      const speedScore = 1 - normalize(cycle, minCycle, maxCycle);
+      const best = scoredCandidates[0];
+      const alts = scoredCandidates.slice(1, 4);
 
-      let score = 0;
-      if (priority === "accuracy") {
-        score = accuracyScore * 0.6 + speedScore * 0.25 + priceScore * 0.15;
-      } else if (priority === "speed") {
-        score = speedScore * 0.6 + accuracyScore * 0.25 + priceScore * 0.15;
-      } else if (priority === "budget") {
-        score = priceScore * 0.6 + accuracyScore * 0.25 + speedScore * 0.15;
-      } else {
-        score = accuracyScore * 0.45 + speedScore * 0.35 + priceScore * 0.2;
-      }
-      row.dataset.score = score.toFixed(4);
-    });
+      resultEl.innerHTML = `
+        <div class="card" style="border-color: var(--gold);">
+          <h3 style="color: var(--gold);">Рекомендуемая модель: ${best.model}</h3>
+          <p style="margin-bottom: 16px;">${best.type}</p>
+          <table class="table" style="margin-top: 16px;">
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>Ваше требование</th>
+                <th>Значение станка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>X / Y / Z, мм</td><td>${userInput.x || '—'}</td><td><strong>${best.xyz}</strong></td></tr>
+              <tr><td>Мощность, кВт</td><td>${userInput.power || '—'}</td><td><strong>${best.power}</strong></td></tr>
+              <tr><td>Частота, об/мин</td><td>${userInput.rpm || '—'}</td><td><strong>${best.rpm.toLocaleString('ru-RU')}</strong></td></tr>
+              <tr><td>Нагрузка, кг</td><td>${userInput.load || '—'}</td><td><strong>${best.load}</strong></td></tr>
+            </tbody>
+          </table>
+          ${alts.length > 0 ? `<p style="margin-top: 16px; color: var(--text-muted);">Альтернативы: ${alts.map(a => a.model).join(', ')}</p>` : ''}
+        </div>`;
 
-    const tbody = document.querySelector("[data-compare-table] tbody");
-    filteredRows
-      .sort((a, b) => parseFloat(b.dataset.score) - parseFloat(a.dataset.score))
-      .forEach((row) => tbody.appendChild(row));
-  };
-
-  [volumeEl, materialEl, accuracyEl, budgetEl, priorityEl].forEach((el) =>
-    el.addEventListener("input", update)
-  );
-  update();
+    } catch (error) {
+      console.error("Podbor error:", error);
+      resultEl.innerHTML = `<p style="color: var(--copper);">Ошибка загрузки данных. Попробуйте позже.</p>`;
+    }
+  });
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  loadHeader();
-  setupCalculator();
-  setupContactForm();
-  setupReveal();
-  setupSelector();
-  setupDecisionSurvey();
-  setupComparisonFilters();
-  setupPodborFilter();
-});
+// ========================================
+// Header Loader
+// ========================================
 
 const loadHeader = async () => {
   const headerElement = document.querySelector("header");
@@ -392,13 +325,11 @@ const loadHeader = async () => {
 
   try {
     const response = await fetch("header.html");
-    if (!response.ok) {
-      throw new Error(`Header not found: ${response.statusText}`);
-    }
+    if (!response.ok) throw new Error(`Header not found: ${response.statusText}`);
     const headerHTML = await response.text();
     headerElement.innerHTML = headerHTML;
 
-    // Highlight active page link
+    // Highlight active page
     const currentPageName = window.location.pathname.split("/").pop();
     const activePage = currentPageName === '' ? 'index.html' : currentPageName;
 
@@ -410,115 +341,19 @@ const loadHeader = async () => {
     });
   } catch (error) {
     console.error("Failed to load header:", error);
-    // Provide a fallback UI in case the header fails to load
-    headerElement.innerHTML = "<div class='navbar'><div class='logo'>Finval • 2026</div><nav class='nav-links' style='color:red;'>Could not load navigation</nav></div>";
+    headerElement.innerHTML = `<div class="navbar"><div class="logo">Fin<span>val</span></div></div>`;
   }
 };
 
-const setupPodborFilter = () => {
-  const form = document.getElementById("podborForm");
-  if (!form) return;
+// ========================================
+// Initialize
+// ========================================
 
-  const resultEl = document.getElementById("podborResult");
-
-  // Helper to parse messy string values into clean numbers
-  const parsePodborValue = (value) => {
-    if (typeof value === 'number') {
-      return value;
-    }
-    if (typeof value !== 'string' || value.trim() === '' || value.trim() === '—') {
-      return 0;
-    }
-    // Take the first part of a complex string (e.g., "400 / 200 / 200" -> "400")
-    // And remove all non-digit characters except for a decimal point.
-    const cleanedString = value.split('/')[0].replace(/[^0-9.]/g, '').trim();
-    const number = parseFloat(cleanedString);
-    return Number.isFinite(number) ? number : 0;
-  };
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    resultEl.innerHTML = `<p class="notice">Подбираем модель...</p>`;
-
-    try {
-      const response = await fetch("podbor.json");
-      if (!response.ok) throw new Error("Could not load machine data.");
-
-      const rawData = await response.json();
-
-      // Clean and pre-process the data
-      const machines = rawData
-        .filter(item => item["Серия / Модель"] && item["Серия / Модель"].trim() !== "")
-        .map(item => ({
-          model: item["Серия / Модель"],
-          type: item["Назначение / Тип обработки"],
-          x: parsePodborValue(item["Перемещение X/Y/Z (мм)"]),
-          power: parsePodborValue(item["Мощность шпинделя (кВт)"]),
-          rpm: parsePodborValue(item["Частота вращения (об/мин)"]),
-          load: parsePodborValue(item["Макс. нагрузка / Масса детали (кг)"]),
-          raw: item // Keep raw data for display
-        }));
-
-      // Get user input
-      const userInput = {
-        x: getValue("podborX"),
-        power: getValue("podborPower"),
-        rpm: getValue("podborRpm"),
-        load: getValue("podborLoad"),
-      };
-      
-      // Filter candidates: must be >= user input in all specified fields
-      const candidates = machines.filter(m => {
-        return (userInput.x > 0 ? m.x >= userInput.x : true) &&
-               (userInput.power > 0 ? m.power >= userInput.power : true) &&
-               (userInput.rpm > 0 ? m.rpm >= userInput.rpm : true) &&
-               (userInput.load > 0 ? m.load >= userInput.load : true);
-      });
-
-      if (candidates.length === 0) {
-        resultEl.innerHTML = `<div class="notice">Не найдено моделей, удовлетворяющих всем вашим критериям. Попробуйте смягчить требования.</div>`;
-        return;
-      }
-
-      // Score and find the best candidate
-      const scoredCandidates = candidates.map(m => {
-        let score = 0;
-        if (userInput.x > 0) score += (m.x - userInput.x) / userInput.x;
-        if (userInput.power > 0) score += (m.power - userInput.power) / userInput.power;
-        if (userInput.rpm > 0) score += (m.rpm - userInput.rpm) / userInput.rpm;
-        if (userInput.load > 0) score += (m.load - userInput.load) / userInput.load;
-        return { ...m, score };
-      });
-      
-      scoredCandidates.sort((a, b) => a.score - b.score);
-      const bestMatch = scoredCandidates[0];
-
-      // Display the result
-      resultEl.innerHTML = `
-        <div class="card">
-          <h3>Рекомендованная модель: <span class="output">${bestMatch.model}</span></h3>
-          <p>${bestMatch.type}</p>
-          <table class="table" style="margin-top: 16px;">
-            <thead>
-              <tr>
-                <th>Параметр</th>
-                <th>Требование</th>
-                <th>Значение</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Перемещение X, мм</td><td>&ge; ${userInput.x || 'N/A'}</td><td><strong>${bestMatch.x}</strong></td></tr>
-              <tr><td>Мощность, кВт</td><td>&ge; ${userInput.power || 'N/A'}</td><td><strong>${bestMatch.power}</strong></td></tr>
-              <tr><td>Вращение, об/мин</td><td>&ge; ${userInput.rpm || 'N/A'}</td><td><strong>${bestMatch.rpm}</strong></td></tr>
-              <tr><td>Нагрузка, кг</td><td>&ge; ${userInput.load || 'N/A'}</td><td><strong>${bestMatch.load}</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
-      `;
-
-    } catch (error) {
-      console.error("Failed during machine selection:", error);
-      resultEl.innerHTML = `<div class="notice" style="color: var(--copper);">Ошибка: Не удалось загрузить или обработать данные для подбора.</div>`;
-    }
-  });
-};
+window.addEventListener("DOMContentLoaded", () => {
+  loadHeader();
+  setupCalculator();
+  setupContactForm();
+  setupReveal();
+  setupPodbor();
+  loadCatalogTable();
+});

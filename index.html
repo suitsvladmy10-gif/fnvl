@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Гид по выбору металлообрабатывающего оборудования Finval 2026. ROI-калькулятор, сравнение станков, каталог. Окупите оборудование на 20% быстрее." />
-  <title>Экономика металлообработки 2026 — гид Finval</title>
+  <meta name="description" content="Гид по выбору металлообрабатывающего оборудования Finval 2026. Сравнение станков, каталог, подбор по параметрам. Окупите оборудование на 20% быстрее." />
+  <title>Эобработки кономика металло2026 — гид Finval</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -19,11 +19,11 @@
         <h1>Выберите <span class="highlight">правильное оборудование</span> и окупите его быстрее</h1>
         <p class="hero-subtitle">
           Практический гид на основе анализа 500+ внедрений и 2000+ контрактов Finval.
-          Рассчитайте ROI, сравните станки и примите обоснованное решение.
+          Подберите станок, рассчитайте ROI и примите обоснованное решение.
         </p>
         <div class="hero-actions">
-          <a href="calculator.html" class="btn btn-primary">Рассчитать окупаемость</a>
-          <a href="comparison.html" class="btn btn-secondary">Сравнить оборудование</a>
+          <a href="comparison.html" class="btn btn-primary">Подобрать станок</a>
+          <a href="calculator.html" class="btn btn-secondary">Рассчитать ROI</a>
         </div>
       </div>
     </section>
@@ -50,106 +50,6 @@
             <div class="card-icon">💰</div>
             <h3>Оптимизация бюджета</h3>
             <p>Избегайте переплаты за неиспользуемые функции — экономьте до 30-50%</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick Calculator -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Быстрый расчет ROI</h2>
-          <p>Введите параметры — результаты обновятся мгновенно</p>
-        </div>
-        <div class="calculator" data-calculator>
-          <div class="grid grid-2">
-            <div class="calc-section">
-              <h4>Инвестиция</h4>
-              <div class="calc-row">
-                <label for="equipmentCost">Стоимость станка, млн ₽</label>
-                <input id="equipmentCost" type="number" value="50" min="0" step="0.1" />
-              </div>
-              <div class="calc-row">
-                <label for="commissioningPercent">Пусконаладка, %</label>
-                <input id="commissioningPercent" type="number" value="25" min="0" step="1" />
-              </div>
-              <div class="calc-row">
-                <label>Итого инвестиция</label>
-                <div class="calc-output" id="investmentTotal">—</div>
-              </div>
-            </div>
-
-            <div class="calc-section">
-              <h4>Производство</h4>
-              <div class="calc-row">
-                <label for="workDays">Рабочих дней в году</label>
-                <input id="workDays" type="number" value="250" min="0" step="1" />
-              </div>
-              <div class="calc-row">
-                <label for="shiftsPerDay">Смен в день</label>
-                <input id="shiftsPerDay" type="number" value="2" min="0" step="1" />
-              </div>
-              <div class="calc-row">
-                <label for="utilizationPercent">Загрузка, %</label>
-                <input id="utilizationPercent" type="number" value="85" min="0" step="1" />
-              </div>
-              <div class="calc-row">
-                <label>Эффективных часов/год</label>
-                <div class="calc-output" id="effectiveHours">—</div>
-              </div>
-            </div>
-
-            <div class="calc-section">
-              <h4>Затраты</h4>
-              <div class="calc-row">
-                <label for="operatorSalary">Зарплата оператора, ₽/мес</label>
-                <input id="operatorSalary" type="number" value="120000" min="0" step="1000" />
-              </div>
-              <div class="calc-row">
-                <label for="toolCost">Инструмент, ₽/час</label>
-                <input id="toolCost" type="number" value="1000" min="0" step="10" />
-              </div>
-              <div class="calc-row">
-                <label>Себестоимость часа</label>
-                <div class="calc-output" id="totalCostHour">—</div>
-              </div>
-            </div>
-
-            <div class="calc-section">
-              <h4>Выручка</h4>
-              <div class="calc-row">
-                <label for="partPrice">Цена детали, ₽</label>
-                <input id="partPrice" type="number" value="15000" min="0" step="100" />
-              </div>
-              <div class="calc-row">
-                <label for="partsPerHour">Деталей в час</label>
-                <input id="partsPerHour" type="number" value="1" min="0" step="0.1" />
-              </div>
-              <div class="calc-row">
-                <label>Выручка в год</label>
-                <div class="calc-output" id="revenueYear">—</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="calc-result">
-            <div class="kpi-card">
-              <div class="value" id="profitYear">—</div>
-              <div class="label">Прибыль в год</div>
-            </div>
-            <div class="kpi-card">
-              <div class="value" id="paybackMonths">—</div>
-              <div class="label">Срок окупаемости</div>
-            </div>
-            <div class="kpi-card">
-              <div class="value" id="roiYear">—</div>
-              <div class="label">ROI в год</div>
-            </div>
-          </div>
-
-          <div class="text-center mt-xl">
-            <a href="calculator.html" class="btn btn-primary">Открыть полный калькулятор</a>
           </div>
         </div>
       </div>
@@ -191,6 +91,33 @@
       </div>
     </section>
 
+    <!-- Quick Links -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Инструменты</h2>
+          <p>Воспользуйтесь нашими инструментами для выбора оборудования</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card" style="text-align: center;">
+            <h3>Подбор станка</h3>
+            <p>Укажите параметры — система подберет оптимальную модель из каталога</p>
+            <a href="comparison.html" class="btn btn-primary" style="margin-top: 16px;">Подобрать</a>
+          </div>
+          <div class="card" style="text-align: center;">
+            <h3>ROI-калькулятор</h3>
+            <p>Рассчитайте срок окупаемости и прибыльность инвестиций</p>
+            <a href="calculator.html" class="btn btn-primary" style="margin-top: 16px;">Рассчитать</a>
+          </div>
+          <div class="card" style="text-align: center;">
+            <h3>Каталог</h3>
+            <p>Полный перечень оборудования с техническими характеристиками</p>
+            <a href="catalog.html" class="btn btn-primary" style="margin-top: 16px;">Смотреть</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="section">
       <div class="container">
@@ -201,7 +128,7 @@
             Получите консультацию инженера Finval.
           </p>
           <div class="hero-actions" style="justify-content: center;">
-            <a href="calculator.html" class="btn btn-primary">Рассчитать ROI</a>
+            <a href="comparison.html" class="btn btn-primary">Подобрать станок</a>
             <a href="contacts.html" class="btn btn-secondary">Получить консультацию</a>
           </div>
         </div>
